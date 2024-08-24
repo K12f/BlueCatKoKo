@@ -18,13 +18,8 @@ using Serilog;
 
 using Wpf.Ui;
 
-using HomeViewModel = BlueCatKoKo.Ui.ViewModels.Pages.HomeViewModel;
-using LogLevel = Microsoft.Extensions.Logging.LogLevel;
-
 namespace BlueCatKoKo.Ui
 {
-    using HomeViewModel = ViewModels.Pages.HomeViewModel;
-
     /// <summary>
     ///     Interaction logic for App.xaml
     /// </summary>

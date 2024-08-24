@@ -1,6 +1,5 @@
 using System.Windows.Controls;
 
-using BlueCatKoKo.Ui.ViewModels;
 using BlueCatKoKo.Ui.ViewModels.Pages;
 
 namespace BlueCatKoKo.Ui.Views.Pages

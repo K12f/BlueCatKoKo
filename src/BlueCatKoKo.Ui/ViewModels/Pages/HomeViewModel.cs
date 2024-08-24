@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.Configuration;
 using System.IO;
 
 using BlueCatKoKo.Ui.Constants;
@@ -25,16 +24,22 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
     [ObservableRecipient]
     public partial class HomeViewModel : ViewModelBase
     {
-        private readonly DouyinDownloaderService _douyinDownloaderService;
         private readonly IOptions<AppConfig> _appConfig;
+        private readonly DouyinDownloaderService _douyinDownloaderService;
         private readonly ILogger _logger;
 
         // 解析出的视频数据
         [ObservableProperty] private HomePageModel _data;
 
+        // 下载进度
+        [ObservableProperty] private double _downloadProcess;
+
         // 下载链接
         [ObservableProperty] [Required(ErrorMessage = "缺少分享链接")]
         private string _downloadUrlText;
+
+        // 是否已经下载
+        [ObservableProperty] private string _isDownload;
 
         // 是否下载音频,默认false
         [ObservableProperty] private bool _isDownloadAudio;
@@ -48,12 +53,6 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
 
         // 视频是否已解析
         [ObservableProperty] private bool _isParsing;
-
-        // 是否已经下载
-        [ObservableProperty] private string _isDownload;
-
-        // 下载进度
-        [ObservableProperty] private double _downloadProcess;
 
 
         public HomeViewModel(IMessenger messenger, ILogger logger, DouyinDownloaderService douyinDownloaderService,
@@ -177,21 +176,19 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
                     throw new InvalidDataException("无效的下载链接");
                 }
 
-                var filename = _appConfig.Value.DownloadPath + Data.VideoId + ".mp4";
+                string filename = _appConfig.Value.DownloadPath + Data.VideoId + ".mp4";
                 await _douyinDownloaderService.Download(Data.VideoUrl, _appConfig.Value.DownloadPath,
                     Data.VideoId + ".mp4",
-                    onProgressChanged: (
-                        (sender, e) =>
-                        {
-                            Console.WriteLine($"Progress: {e.ProgressPercentage}%");
-                            DownloadProcess = e.ProgressPercentage;
-                        }), onProgressCompleted: ((sender, e) =>
+                    (sender, e) =>
+                    {
+                        DownloadProcess = e.ProgressPercentage;
+                    }, (sender, e) =>
                     {
                         DownloadProcess = 100;
                         IsDownload = "hidden";
-                        message = filename+"下载成功~";
+                        message = filename + "下载成功~";
                         _logger.Error($"Download completed! Status: {e.Error}");
-                    }));
+                    });
             }
             catch (Exception ex)
             {

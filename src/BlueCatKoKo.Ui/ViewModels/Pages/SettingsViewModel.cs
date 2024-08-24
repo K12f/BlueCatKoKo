@@ -1,15 +1,9 @@
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
-using System.Windows.Forms;
-
 using BlueCatKoKo.Ui.Models;
 using BlueCatKoKo.Ui.Services;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-
-using LibVLCSharp.Shared;
 
 using Microsoft.Extensions.Options;
 
