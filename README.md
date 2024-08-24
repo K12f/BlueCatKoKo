@@ -4,6 +4,8 @@
 
 蓝猫KoKo下载器（BlueCatKoKo）是一个简单易用的抖音视频下载工具，具有简洁的界面，流畅的操作逻辑。可以下载几乎所有的抖音视频，并输出mp4格式的文件。
 > 因为包含了LibVLC库播放视频，所以比较大
+## 使用教程
+![_20240824121629.png](https://s2.loli.net/2024/08/24/BRfOVi4X6bFY8EU.jpg)
 ## 下载
 https://github.com/K12f/BlueCatKoKo/releases
 
