@@ -8,7 +8,8 @@
 ![_20240824121629.png](https://s2.loli.net/2024/08/24/BRfOVi4X6bFY8EU.jpg)
 ## 下载
 https://github.com/K12f/BlueCatKoKo/releases
-
+## 库版本
+- .net>=8.0
 ## 免责申明
 
 1. 本软件只提供视频解析，不提供任何资源上传、存储到服务器的功能。
