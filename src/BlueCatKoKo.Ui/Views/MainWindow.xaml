@@ -1,0 +1,62 @@
+﻿<ui:FluentWindow x:Class="BlueCatKoKo.Ui.Views.MainWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                 xmlns:hc="https://handyorg.github.io/handycontrol"
+                 xmlns:tray="http://schemas.lepo.co/wpfui/2022/xaml/tray"
+                 xmlns:views="clr-namespace:BlueCatKoKo.Ui.Views"
+                 d:DataContext="{d:DesignInstance views:MainWindow,
+                                     IsDesignTimeCreatable=True}"
+                 ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+                 ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                 ExtendsContentIntoTitleBar="True"
+                 Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                 WindowBackdropType="Mica"
+                 WindowCornerPreference="Round"
+                 WindowStartupLocation="CenterScreen"
+                 mc:Ignorable="d"
+                 Title="{Binding ViewModel.ApplicationTitle}"
+                 Width="1366"
+                 Height="768"
+                 d:DesignHeight="768"
+                 d:DesignWidth="1366">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+
+    <ui:NavigationView
+      x:Name="RootNavigation"
+      Grid.Row="1"
+      IsBackButtonVisible="Collapsed"
+      IsPaneToggleVisible="True"
+      OpenPaneLength="150"
+      FooterMenuItemsSource="{Binding ViewModel.NavigationFooter, Mode=OneWay}"
+      MenuItemsSource="{Binding ViewModel.NavigationItems, Mode=OneWay}">
+      <ui:NavigationView.Header>
+        <ui:BreadcrumbBar
+          Margin="42,32,0,0"
+          FontSize="28"
+          FontWeight="DemiBold" />
+      </ui:NavigationView.Header>
+    </ui:NavigationView>
+    <ui:TitleBar
+      Title="{Binding ViewModel.ApplicationTitle, Mode=OneWay}"
+      Grid.Row="0"
+      Icon="pack://application:,,,/applicationicon.ico" />
+
+    <hc:NotifyIcon Grid.Row="0" Text="{Binding ViewModel.ApplicationTitle}" IsBlink="False" Visibility="Visible"
+                   Icon="/Assets/applicationicon.jpg">
+      <hc:NotifyIcon.ContextMenu>
+        <ContextMenu>
+          <MenuItem Command="hc:ControlCommands.PushMainWindow2Top" Header="首页" />
+          <MenuItem Command="hc:ControlCommands.ShutdownApp" Header="退出" />
+        </ContextMenu>
+      </hc:NotifyIcon.ContextMenu>
+    </hc:NotifyIcon>
+
+  </Grid>
+</ui:FluentWindow>
