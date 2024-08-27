@@ -8,6 +8,41 @@
     <ApplicationIcon>applicationIcon.ico</ApplicationIcon>
     <Platforms>AnyCPU;x64</Platforms>
     <UseWPF>true</UseWPF>
+
+    <BeautySharedRuntimeMode>False</BeautySharedRuntimeMode>
+    <!-- beauty into sub-directory, default is libs, quote with "" if contains space  -->
+    <BeautyLibsDir Condition="$(BeautySharedRuntimeMode) == 'True'">../libraries</BeautyLibsDir>
+    <BeautyLibsDir Condition="$(BeautySharedRuntimeMode) != 'True'">./libraries</BeautyLibsDir>
+    <!-- dlls that you don't want to be moved or can not be moved -->
+    <!-- <BeautyExcludes>dll1.dll;lib*;...</BeautyExcludes> -->
+    <!-- dlls that end users never needed, so hide them -->
+    <!-- <BeautyHiddens>hostfxr;hostpolicy;*.deps.json;*.runtimeconfig*.json</BeautyHiddens> -->
+    <!-- set to True if you want to disable -->
+    <DisableBeauty>False</DisableBeauty>
+    <!-- set to False if you want to beauty on build -->
+    <BeautyOnPublishOnly>False</BeautyOnPublishOnly>
+    <!-- DO NOT TOUCH THIS OPTION -->
+    <BeautyNoRuntimeInfo>False</BeautyNoRuntimeInfo>
+    <!-- set to True if you want to allow 3rd debuggers(like dnSpy) debugs the app -->
+    <BeautyEnableDebugging>False</BeautyEnableDebugging>
+    <!-- the patch can reduce the file count -->
+    <!-- set to False if you want to disable -->
+    <!-- SCD Mode Feature Only -->
+    <BeautyUsePatch>True</BeautyUsePatch>
+    <!-- App Entry Dll = BeautyDir + BeautyAppHostDir + BeautyAppHostEntry -->
+    <!-- see https://github.com/nulastudio/NetBeauty2#customize-apphost for more details -->
+    <!-- relative path based on AppHostDir -->
+    <!-- .NET Core Non Single-File Only -->
+    <!-- <BeautyAppHostEntry>bin/MyApp.dll</BeautyAppHostEntry> -->
+    <!-- relative path based on BeautyDir -->
+    <!-- .NET Core Non Single-File Only -->
+    <!-- <BeautyAppHostDir>..</BeautyAppHostDir> -->
+    <!-- <BeautyAfterTasks></BeautyAfterTasks> -->
+    <!-- valid values: Error|Detail|Info -->
+    <BeautyLogLevel>Info</BeautyLogLevel>
+    <!-- set to a repo mirror if you have troble in connecting github -->
+    <!-- <BeautyGitCDN>https://gitee.com/liesauer/HostFXRPatcher</BeautyGitCDN> -->
+    <!-- <BeautyGitTree>master</BeautyGitTree> -->
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +54,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0"/>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0"/>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="nulastudio.NetBeauty" Version="2.1.4.5"/>
     <PackageReference Include="RestSharp" Version="111.4.1"/>
     <PackageReference Include="Serilog" Version="4.0.1"/>
     <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0"/>
