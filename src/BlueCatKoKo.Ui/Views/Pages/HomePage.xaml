@@ -26,7 +26,7 @@
         </hc:Col>
         <hc:Col Span="4">
           <Button Style="{StaticResource ButtonPrimary}" Content="解析链接" Command="{Binding ViewModel.ParseCommand}"
-                  IsEnabled="{Binding ViewModel.ParsingBtnStatus}" Margin="5" />
+                  IsEnabled="{Binding ViewModel.IsDisableParsingBtn}" Margin="5" />
         </hc:Col>
       </hc:Row>
       <hc:Row>

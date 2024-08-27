@@ -42,7 +42,7 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
         [ObservableProperty] private string _isDownload;
 
         // 解析按钮状态，正在解析/下载时，禁止点击
-        [ObservableProperty] private bool _parsingBtnStatus;
+        [ObservableProperty] private bool _isDisableParsingBtn;
 
         // 是否下载音频,默认false
         [ObservableProperty] private bool _isDownloadAudio;
@@ -66,7 +66,7 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
             IsDownloadVideo = true;
 
             IsDownload = "Hidden";
-            ParsingBtnStatus = true;
+            IsDisableParsingBtn = true;
 
 
             _logger = logger;
@@ -90,7 +90,7 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
         private async Task Parse()
         {
             ValidateAllProperties();
-            ParsingBtnStatus = false;
+            IsDisableParsingBtn = false;
             string message = "解析成功~";
             DownloaderEnum type = DownloaderEnum.Success;
 
@@ -151,7 +151,7 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
             }
             finally
             {
-                ParsingBtnStatus = true;
+                IsDisableParsingBtn = true;
                 IsParsed = "Visible";
                 DownloaderMessage downloadMessage = new(type, message, DownloadUrlText);
                 Messenger.Send(new ValueChangedMessage<DownloaderMessage>(downloadMessage));
@@ -162,7 +162,7 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
         private async Task DownloadAll()
         {
             IsDownload = "Visible";
-            ParsingBtnStatus = false;
+            IsDisableParsingBtn = false;
 
             string message = "下载中...";
             DownloaderEnum type = DownloaderEnum.Success;
@@ -199,7 +199,7 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
             finally
             {
                 IsDownload = "hidden";
-                ParsingBtnStatus = true;
+                IsDisableParsingBtn = true;
                 DownloaderMessage downloadMessage = new(type, message, DownloadUrlText);
                 Messenger.Send(new ValueChangedMessage<DownloaderMessage>(downloadMessage));
             }
