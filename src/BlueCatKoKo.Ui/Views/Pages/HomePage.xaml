@@ -25,25 +25,29 @@
                    Style="{StaticResource TextBoxExtend}" />
         </hc:Col>
         <hc:Col Span="4">
-          <ToggleButton Style="{StaticResource ToggleButtonLoadingPrimary}" IsChecked="{Binding ViewModel.IsParsing,Mode=TwoWay}"
-                        Content="解析链接" Command="{Binding ViewModel.ParseCommand}" Margin="5"/>
+          <Button Style="{StaticResource ButtonPrimary}" Content="解析链接" Command="{Binding ViewModel.ParseCommand}"
+                  IsEnabled="{Binding ViewModel.ParsingBtnStatus}" Margin="5" />
         </hc:Col>
       </hc:Row>
       <hc:Row>
         <hc:Col Span="20">
-          <hc:UniformSpacingPanel  Orientation="Vertical">
-            <ProgressBar Style="{StaticResource ProgressBarInfo}" Visibility="{Binding ViewModel.IsDownload}" Value="{Binding ViewModel.DownloadProcess}" Maximum="100"/>
+          <hc:UniformSpacingPanel Orientation="Vertical">
+            <ProgressBar Style="{StaticResource ProgressBarInfo}" Visibility="{Binding ViewModel.IsDownload}"
+                         Value="{Binding ViewModel.DownloadProcess}" Maximum="100" />
           </hc:UniformSpacingPanel>
         </hc:Col>
       </hc:Row>
       <hc:Row Margin="0,20,0,0" Visibility="{Binding ViewModel.IsParsed}">
         <hc:Col Span="10" Margin="8">
           <hc:UniformSpacingPanel Orientation="Vertical">
-            <vlc:VideoView MediaPlayer="{Binding ViewModel.MediaPlayer, Mode=TwoWay}"
-                           Width="{Binding ViewModel.MediaPlayerWidth}" Height="{Binding ViewModel.MediaPlayerHeight}" Background="Gainsboro" />
+            <vlc:VideoView MediaPlayer="{Binding ViewModel.MediaPlayer, Mode=OneWay}"
+                           IsEnabled="False"
+                           Width="{Binding ViewModel.MediaPlayerWidth}" Height="{Binding ViewModel.MediaPlayerHeight}"
+                           Background="Gainsboro" />
             <!-- <CheckBox Margin="0,16,0,0" Content="视频" IsChecked="{Binding ViewModel.IsDownloadVideo}"/> -->
             <!-- <CheckBox Margin="0,16,0,0" Content="音频" IsChecked="{Binding ViewModel.IsDownloadAudio}"/> -->
-            <Button Content="一键下载" Command="{Binding ViewModel.DownloadAllCommand}" Style="{StaticResource ButtonSuccess}" />
+            <Button Content="一键下载" Command="{Binding ViewModel.DownloadAllCommand}"
+                    Style="{StaticResource ButtonSuccess}" />
           </hc:UniformSpacingPanel>
         </hc:Col>
         <hc:Col Span="10" Margin="8">

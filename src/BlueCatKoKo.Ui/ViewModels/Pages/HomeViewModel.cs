@@ -41,6 +41,9 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
         // 是否已经下载
         [ObservableProperty] private string _isDownload;
 
+        // 解析按钮状态，正在解析/下载时，禁止点击
+        [ObservableProperty] private bool _parsingBtnStatus;
+
         // 是否下载音频,默认false
         [ObservableProperty] private bool _isDownloadAudio;
 
@@ -51,22 +54,20 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
         // 视频是否已解析
         [ObservableProperty] private string _isParsed;
 
-        // 视频是否已解析
-        [ObservableProperty] private bool _isParsing;
-
-
         public HomeViewModel(IMessenger messenger, ILogger logger, DouyinDownloaderService douyinDownloaderService,
             IOptions<AppConfig> appConfig)
         {
             Messenger = messenger;
             IsActive = true;
+
             IsParsed = "Hidden";
-            IsParsing = false;
 
             IsDownloadAudio = false;
             IsDownloadVideo = true;
 
             IsDownload = "Hidden";
+            ParsingBtnStatus = true;
+
 
             _logger = logger;
             _douyinDownloaderService = douyinDownloaderService;
@@ -75,6 +76,7 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
 
             LibVlc = new LibVLC();
             MediaPlayer = new MediaPlayer(LibVlc);
+            MediaPlayer.EnableMouseInput = true;
             //通过设置宽高比为窗体宽高可达到视频铺满全屏的效果
             MediaPlayer.AspectRatio = MediaPlayerWidth + ":" + MediaPlayerHeight;
         }
@@ -88,8 +90,7 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
         private async Task Parse()
         {
             ValidateAllProperties();
-            IsParsing = true;
-
+            ParsingBtnStatus = false;
             string message = "解析成功~";
             DownloaderEnum type = DownloaderEnum.Success;
 
@@ -142,9 +143,6 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
                 {
                     MediaPlayer.Play(media);
                 }
-
-                IsParsed = "Visible";
-                IsParsing = false;
             }
             catch (Exception ex)
             {
@@ -153,6 +151,8 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
             }
             finally
             {
+                ParsingBtnStatus = true;
+                IsParsed = "Visible";
                 DownloaderMessage downloadMessage = new(type, message, DownloadUrlText);
                 Messenger.Send(new ValueChangedMessage<DownloaderMessage>(downloadMessage));
             }
@@ -162,6 +162,8 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
         private async Task DownloadAll()
         {
             IsDownload = "Visible";
+            ParsingBtnStatus = false;
+
             string message = "下载中...";
             DownloaderEnum type = DownloaderEnum.Success;
             try
@@ -185,18 +187,19 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
                     }, (sender, e) =>
                     {
                         DownloadProcess = 100;
-                        IsDownload = "hidden";
                         message = filename + "下载成功~";
-                        _logger.Error($"Download completed! Status: {e.Error}");
                     });
             }
             catch (Exception ex)
             {
                 type = DownloaderEnum.Warning;
                 message = ex.Message;
+                _logger.Error($"DownloadException: {message}");
             }
             finally
             {
+                IsDownload = "hidden";
+                ParsingBtnStatus = true;
                 DownloaderMessage downloadMessage = new(type, message, DownloadUrlText);
                 Messenger.Send(new ValueChangedMessage<DownloaderMessage>(downloadMessage));
             }
