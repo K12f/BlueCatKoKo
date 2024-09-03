@@ -160,18 +160,13 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
         }
 
         [RelayCommand]
-        private void PlayVideo()
+        private void PlayOrPauseVideo()
         {
             if (!MediaPlayer.IsPlaying)
             {
                 MediaPlayer.Play();
             }
-        }
-        
-        [RelayCommand]
-        private void PauseVideo()
-        {
-            if (MediaPlayer.IsPlaying)
+            else
             {
                 MediaPlayer.Pause();
             }
