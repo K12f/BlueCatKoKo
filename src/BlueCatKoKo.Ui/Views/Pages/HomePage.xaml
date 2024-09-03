@@ -46,6 +46,10 @@
                            Background="Gainsboro" />
             <!-- <CheckBox Margin="0,16,0,0" Content="视频" IsChecked="{Binding ViewModel.IsDownloadVideo}"/> -->
             <!-- <CheckBox Margin="0,16,0,0" Content="音频" IsChecked="{Binding ViewModel.IsDownloadAudio}"/> -->
+            <Button Content="播放视频" Command="{Binding ViewModel.PlayVideoCommand}"
+                    Style="{StaticResource ButtonPrimary}" />
+            <Button Content="暂停视频" Command="{Binding ViewModel.PauseVideoCommand}"
+                    Style="{StaticResource ButtonInfo}" />
             <Button Content="一键下载" Command="{Binding ViewModel.DownloadAllCommand}"
                     Style="{StaticResource ButtonSuccess}" />
           </hc:UniformSpacingPanel>
