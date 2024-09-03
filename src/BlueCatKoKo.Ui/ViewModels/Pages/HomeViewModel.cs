@@ -76,6 +76,7 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
 
             LibVlc = new LibVLC();
             MediaPlayer = new MediaPlayer(LibVlc);
+
             MediaPlayer.EnableMouseInput = true;
             //通过设置宽高比为窗体宽高可达到视频铺满全屏的效果
             MediaPlayer.AspectRatio = MediaPlayerWidth + ":" + MediaPlayerHeight;
@@ -139,10 +140,10 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
                 };
 
                 // 绑定视频
-                using (Media media = new(LibVlc, new Uri(Data.VideoUrl)))
-                {
-                    MediaPlayer.Play(media);
-                }
+                using Media media = new(LibVlc, new Uri(Data.VideoUrl));
+                // 这里设置选项，防止自动播放
+                MediaPlayer.Media = media;
+                MediaPlayer.Pause();
             }
             catch (Exception ex)
             {
@@ -155,6 +156,24 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
                 IsParsed = "Visible";
                 DownloaderMessage downloadMessage = new(type, message, DownloadUrlText);
                 Messenger.Send(new ValueChangedMessage<DownloaderMessage>(downloadMessage));
+            }
+        }
+
+        [RelayCommand]
+        private void PlayVideo()
+        {
+            if (!MediaPlayer.IsPlaying)
+            {
+                MediaPlayer.Play();
+            }
+        }
+        
+        [RelayCommand]
+        private void PauseVideo()
+        {
+            if (MediaPlayer.IsPlaying)
+            {
+                MediaPlayer.Pause();
             }
         }
 
