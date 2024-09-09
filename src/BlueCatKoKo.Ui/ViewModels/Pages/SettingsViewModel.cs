@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 
 using Microsoft.Extensions.Options;
+using Microsoft.Win32;
 
 using Serilog;
 
@@ -37,11 +38,11 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
         private void SelectDownloadPath()
         {
             // Configure open folder dialog box
-            Microsoft.Win32.OpenFolderDialog dialog = new() { Multiselect = false };
+            OpenFolderDialog dialog = new() { Multiselect = false };
             if (dialog.ShowDialog() == true)
             {
                 // 获取用户选择的目录路径
-                string selectedPath = dialog.FolderName+"/";
+                string selectedPath = dialog.FolderName + "/";
                 DownloadPath = selectedPath;
                 _appConfig.Value.DownloadPath = selectedPath;
 
