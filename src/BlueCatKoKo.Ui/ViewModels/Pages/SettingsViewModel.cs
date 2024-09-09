@@ -41,7 +41,7 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
             if (dialog.ShowDialog() == true)
             {
                 // 获取用户选择的目录路径
-                string selectedPath = dialog.FolderName;
+                string selectedPath = dialog.FolderName+"/";
                 DownloadPath = selectedPath;
                 _appConfig.Value.DownloadPath = selectedPath;
 
