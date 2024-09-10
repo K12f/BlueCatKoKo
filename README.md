@@ -22,4 +22,5 @@ https://github.com/K12f/BlueCatKoKo/releases
 5. 因使用本软件产生的版权问题，软件作者概不负责。
 
 ## 喜欢就赞赏一下吧😄
-![reward.png](./Assets/reward.png)
+
+![reward.png](./assets/reward.png)
