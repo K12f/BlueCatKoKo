@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Text;
+using System.Windows;
 using System.Windows.Threading;
 
 using BlueCatKoKo.Ui.Models;
@@ -35,7 +36,9 @@ namespace BlueCatKoKo.Ui
                 logging.ClearProviders();
                 Log.Logger = new LoggerConfiguration()
                     .WriteTo.Console()
-                    .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
+                    .WriteTo.File(
+                        "log.txt", rollingInterval: RollingInterval.Day,encoding:Encoding.UTF8
+                    )
                     .CreateLogger();
                 logging.Services.AddSingleton(Log.Logger);
             })
@@ -48,7 +51,7 @@ namespace BlueCatKoKo.Ui
 
                 // Service containing 
                 container.AddSingleton<INavigationService, NavigationService>();
-                container.AddSingleton<DouyinDownloaderService>();
+                container.AddSingleton<IDownloaderService, DouyinDownloaderService>();
 
                 // Main window with navigation
                 container.AddSingleton<MainWindowViewModel>();

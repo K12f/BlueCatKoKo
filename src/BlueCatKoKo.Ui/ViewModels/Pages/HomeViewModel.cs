@@ -25,11 +25,11 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
     public partial class HomeViewModel : ViewModelBase
     {
         private readonly IOptions<AppConfig> _appConfig;
-        private readonly DouyinDownloaderService _douyinDownloaderService;
+        private readonly IDownloaderService _douyinDownloaderService;
         private readonly ILogger _logger;
 
         // 解析出的视频数据
-        [ObservableProperty] private HomePageModel _data;
+        [ObservableProperty] private VideoModel _data;
 
         // 下载进度
         [ObservableProperty] private double _downloadProcess;
@@ -38,11 +38,11 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
         [ObservableProperty] [Required(ErrorMessage = "缺少分享链接")]
         private string _downloadUrlText;
 
-        // 是否已经下载
-        [ObservableProperty] private string _isDownload;
-
         // 解析按钮状态，正在解析/下载时，禁止点击
         [ObservableProperty] private bool _isDisableParsingBtn;
+
+        // 是否已经下载
+        [ObservableProperty] private string _isDownload;
 
         // 是否下载音频,默认false
         [ObservableProperty] private bool _isDownloadAudio;
@@ -54,7 +54,8 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
         // 视频是否已解析
         [ObservableProperty] private string _isParsed;
 
-        public HomeViewModel(IMessenger messenger, ILogger logger, DouyinDownloaderService douyinDownloaderService,
+        public HomeViewModel(IMessenger messenger, ILogger logger,
+            IDownloaderService douyinDownloaderService,
             IOptions<AppConfig> appConfig)
         {
             Messenger = messenger;
@@ -108,39 +109,13 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
                     throw new ValidationException("请输入正确的分享链接");
                 }
 
-                string downloadUrl = await _douyinDownloaderService.ExtractUrlAsync(DownloadUrlText);
-                DouyinShareRouterData? douYinRouterData =
-                    await _douyinDownloaderService.ExtractVideoDataAsync(downloadUrl);
-                if (douYinRouterData is null)
-                {
-                    throw new InvalidDataException("解析数据为空，请检查分享链接是否正确，如有更多问题请查看日志");
-                }
+                var downloadUrl = await _douyinDownloaderService.ExtractUrlAsync(DownloadUrlText);
+                var douYinRouterData = await _douyinDownloaderService.ExtractVideoDataAsync(downloadUrl);
 
-                // 获取数据 
-                ItemList videoInfoData = douYinRouterData.LoaderData.VideoIdPage.VideoInfoRes.ItemList.First();
-
-                Data = new HomePageModel
-                {
-                    VideoId = videoInfoData.AwemeId,
-                    AuthorName = videoInfoData.Author.Nickname,
-                    AuthorAvatar = videoInfoData.Author.AvatarThumb.UrlList.First().ToString(),
-                    Title = videoInfoData.Author.Signature,
-                    Cover = videoInfoData.Video.Cover.UrlList.Last().ToString(),
-                    VideoUrl = videoInfoData.Video.PlayAddr.UrlList.First().ToString().Replace("playwm", "play"),
-                    Mp3Url = "",
-                    CreatedTime =
-                        DateTimeOffset.FromUnixTimeSeconds(videoInfoData.CreateTime)
-                            .ToString("yyyy-MM-dd HH:mm:ss"),
-                    Desc = videoInfoData.Desc,
-                    Duration = "",
-                    DiggCount = videoInfoData.Statistics.DiggCount,
-                    CollectCount = videoInfoData.Statistics.CollectCount,
-                    CommentCount = videoInfoData.Statistics.CommentCount,
-                    ShareCount = videoInfoData.Statistics.ShareCount
-                };
-
+                Data = douYinRouterData;
+                
                 // 绑定视频
-                using Media media = new(LibVlc, new Uri(Data.VideoUrl));
+                using Media media = new(LibVlc, new Uri(douYinRouterData.VideoUrl));
                 // 这里设置选项，防止自动播放
                 MediaPlayer.Media = media;
                 MediaPlayer.Pause();
@@ -193,7 +168,7 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
                 }
 
                 string filename = _appConfig.Value.DownloadPath + Data.VideoId + ".mp4";
-                await _douyinDownloaderService.Download(Data.VideoUrl, _appConfig.Value.DownloadPath,
+                await _douyinDownloaderService.DownloadAsync(Data.VideoUrl, _appConfig.Value.DownloadPath,
                     Data.VideoId + ".mp4",
                     (sender, e) =>
                     {

@@ -53,7 +53,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0"/>
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0"/>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0"/>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
     <PackageReference Include="nulastudio.NetBeauty" Version="2.1.4.5"/>
     <PackageReference Include="RestSharp" Version="111.4.1"/>
     <PackageReference Include="Serilog" Version="4.0.1"/>
@@ -68,7 +68,7 @@
   <PropertyGroup>
     <AssemblyName>BlueCatKoKo</AssemblyName>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -87,8 +87,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Assets\applicationicon.jpg" />
-    <Resource Include="Assets\applicationicon.jpg" />
+    <None Remove="Assets\applicationicon.jpg"/>
+    <Resource Include="Assets\applicationicon.jpg"/>
   </ItemGroup>
 
 </Project>

@@ -3,7 +3,7 @@ namespace BlueCatKoKo.Ui.Models.Pages
     /// <summary>
     ///     home page页面数据
     /// </summary>
-    public class HomePageModel
+    public class VideoModel
     {
         // 视频ID
         public string? VideoId { get; set; }

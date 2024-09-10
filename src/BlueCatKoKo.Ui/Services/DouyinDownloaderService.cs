@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 
 using BlueCatKoKo.Ui.Models;
+using BlueCatKoKo.Ui.Models.Pages;
 
 using Downloader;
 
@@ -15,7 +16,7 @@ using Serilog;
 
 namespace BlueCatKoKo.Ui.Services
 {
-    public class DouyinDownloaderService
+    public class DouyinDownloaderService : IDownloaderService
     {
         private static readonly Dictionary<string, string> _defaultHeaders = new()
         {
@@ -48,13 +49,13 @@ namespace BlueCatKoKo.Ui.Services
             _logger = logger;
         }
 
-        /// <summary>
-        ///     解析dy分享中的文本 6.17 05/18 U@L.wf fbn:/ 悬疑推理：亡者和自己的手机上午一同下葬，下午却给警察发来短信 本期的故事，来自于高分推理神剧《天堂岛疑云》中的谜案《亡灵的短信》。# 悬疑推理 # 每日推荐电影
-        ///     # 一剪到底  https://v.douyin.com/ircqoExo/ 复制此链接，打开Dou音搜索，直接观看视频！
-        ///     https://v.douyin.com/ircqoExo/
-        /// </summary>
-        /// <param name="text"></param>
-        /// <returns></returns>
+       /// <summary>
+       ///     解析dy分享中的文本 6.17 05/18 U@L.wf fbn:/ 悬疑推理：亡者和自己的手机上午一同下葬，下午却给警察发来短信 本期的故事，来自于高分推理神剧《天堂岛疑云》中的谜案《亡灵的短信》。# 悬疑推理 # 每日推荐电影
+       ///     # 一剪到底  https://v.douyin.com/ircqoExo/ 复制此链接，打开Dou音搜索，直接观看视频！
+       ///     https://v.douyin.com/ircqoExo/
+       /// </summary>
+       /// <param name="text"></param>
+       /// <returns></returns>
         public async Task<string> ExtractUrlAsync(string text)
         {
             _logger.Information("开始解析文本 {text}", text);
@@ -66,16 +67,16 @@ namespace BlueCatKoKo.Ui.Services
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public async Task<DouyinShareRouterData?> ExtractVideoDataAsync(string url)
+        public async Task<VideoModel> ExtractVideoDataAsync(string url)
         {
             try
             {
                 _logger.Information("开始解析链接 {url}", url);
                 // 创建RestClient
-                RestClient client = new RestClient(url);
+                RestClient client = new(url);
 
                 // 创建请求对象
-                RestRequest request = new RestRequest();
+                RestRequest request = new();
 
                 // 设置 User-Agent 模拟手机浏览器
                 request.AddHeaders(_defaultHeaders);
@@ -107,7 +108,34 @@ namespace BlueCatKoKo.Ui.Services
                 string videoJson = matchJson.Groups[1].Value;
                 _logger.Information("开始解析匹配到的json {videoJson}", videoJson);
                 // 反序列化JSON字符串为C#对象
-                return JsonConvert.DeserializeObject<DouyinShareRouterData>(videoJson);
+                DouyinShareRouterData? videoData = JsonConvert.DeserializeObject<DouyinShareRouterData>(videoJson);
+
+                if (videoData is null)
+                {
+                    throw new InvalidDataException("JSON解析数据为空，请检查分享链接是否正确，如有更多问题请查看日志");
+                }
+
+                ItemList videoInfoData = videoData.LoaderData.VideoIdPage.VideoInfoRes.ItemList.First();
+
+                return new VideoModel
+                {
+                    VideoId = videoInfoData.AwemeId,
+                    AuthorName = videoInfoData.Author.Nickname,
+                    AuthorAvatar = videoInfoData.Author.AvatarThumb.UrlList.First().ToString(),
+                    Title = videoInfoData.Author.Signature,
+                    Cover = videoInfoData.Video.Cover.UrlList.Last().ToString(),
+                    VideoUrl = videoInfoData.Video.PlayAddr.UrlList.First().ToString().Replace("playwm", "play"),
+                    Mp3Url = "",
+                    CreatedTime =
+                        DateTimeOffset.FromUnixTimeSeconds(videoInfoData.CreateTime)
+                            .ToString("yyyy-MM-dd HH:mm:ss"),
+                    Desc = videoInfoData.Desc,
+                    Duration = "",
+                    DiggCount = videoInfoData.Statistics.DiggCount,
+                    CollectCount = videoInfoData.Statistics.CollectCount,
+                    CommentCount = videoInfoData.Statistics.CommentCount,
+                    ShareCount = videoInfoData.Statistics.ShareCount
+                };
             }
             catch (Exception e)
             {
@@ -116,23 +144,23 @@ namespace BlueCatKoKo.Ui.Services
             }
         }
 
-        public async Task Download(string url, string savePath, string fileName,
+        public async Task DownloadAsync(string url, string savePath, string fileName,
             EventHandler<DownloadProgressChangedEventArgs> onProgressChanged,
             EventHandler<AsyncCompletedEventArgs> onProgressCompleted
         )
         {
-            var downloadConfiguration = new DownloadConfiguration
+            DownloadConfiguration downloadConfiguration = new()
             {
                 ChunkCount = 8, // Download in 8 chunks (increase for larger files)
                 MaxTryAgainOnFailover = 5, // Retry up to 5 times on failure
                 Timeout = 10000, // 10 seconds timeout for each request
-                RequestConfiguration = new RequestConfiguration()
+                RequestConfiguration = new RequestConfiguration
                 {
-                    UserAgent = _defaultHeaders.GetValueOrDefault("User-Agent"),
+                    UserAgent = _defaultHeaders.GetValueOrDefault("User-Agent")
                 }
             };
 
-            var downloader = new DownloadService(downloadConfiguration);
+            DownloadService downloader = new(downloadConfiguration);
 
             downloader.DownloadProgressChanged += onProgressChanged;
             downloader.DownloadFileCompleted += onProgressCompleted;
