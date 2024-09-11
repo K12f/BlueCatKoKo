@@ -39,12 +39,6 @@
             </Run>
             <LineBreak />
           </TextBlock>
-          <TextBlock Text="赞赏一下吧😄" FontSize="20" FontWeight="Bold"/>
-          <Border CornerRadius="4,4,0,0" Width="300" Height="300">
-            <Border.Background>
-              <ImageBrush ImageSource="/Assets/reward.png" Stretch="UniformToFill" />
-            </Border.Background>
-          </Border>
         </hc:UniformSpacingPanel>
       </hc:Col>
     </hc:Row>

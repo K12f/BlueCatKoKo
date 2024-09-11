@@ -89,8 +89,6 @@
   <ItemGroup>
     <None Remove="Assets\applicationicon.jpg"/>
     <Resource Include="Assets\applicationicon.jpg"/>
-    <None Remove="Assets\reward.png" />
-    <Resource Include="Assets\reward.png" />
   </ItemGroup>
 
 </Project>
