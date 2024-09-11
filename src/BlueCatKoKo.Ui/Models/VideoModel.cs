@@ -1,10 +1,15 @@
-namespace BlueCatKoKo.Ui.Models.Pages
+using BlueCatKoKo.Ui.Constants;
+
+namespace BlueCatKoKo.Ui.Models
 {
     /// <summary>
     ///     home page页面数据
     /// </summary>
     public class VideoModel
     {
+        // 短视频所属的平台
+        public ShortVideoPlatformEnum Platform { get; set; }
+        
         // 视频ID
         public string? VideoId { get; set; }
 
@@ -21,16 +26,19 @@ namespace BlueCatKoKo.Ui.Models.Pages
         public string? Cover { get; set; }
 
         // 收藏数
-        public int? CollectCount { get; set; }
+        public long? CollectCount { get; set; }
 
         // 点赞数
-        public int? DiggCount { get; set; }
+        public long? DiggCount { get; set; }
 
         // 分享数
-        public int? ShareCount { get; set; }
+        public long? ShareCount { get; set; }
 
         // 评论数
-        public int? CommentCount { get; set; }
+        public long? CommentCount { get; set; }
+        
+        // 观看数量
+        public long? ViewCount { get; set; }
 
         // 视频地址
         public string? VideoUrl { get; set; }

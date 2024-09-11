@@ -21,7 +21,7 @@
       <hc:Row Margin="0,0,0,0">
         <hc:Col Span="20">
           <TextBox Text="{Binding ViewModel.DownloadUrlText}"
-                   hc:InfoElement.Placeholder="请粘贴DY分享链接,每日推荐电影 # 一剪到底  https://v.douyin.com/ircqoExo/ 复制此链接，打开Dou音搜索，直接观看视频！"
+                   hc:InfoElement.Placeholder="请粘贴抖音/快手 分享链接"
                    Style="{StaticResource TextBoxExtend}" />
         </hc:Col>
         <hc:Col Span="4">

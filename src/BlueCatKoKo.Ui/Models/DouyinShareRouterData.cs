@@ -5,7 +5,7 @@ namespace BlueCatKoKo.Ui.Models
     /// <summary>
     ///     抖音 分享文本中的视频数据
     /// </summary>
-    public class DouyinShareRouterData
+    public class DouYinShareRouterData
     {
         [JsonProperty("loaderData")] public LoaderData LoaderData { get; set; }
     }
@@ -258,17 +258,17 @@ namespace BlueCatKoKo.Ui.Models
 
     public class Statistics
     {
-        [JsonProperty("comment_count")] public int CommentCount { get; set; }
+        [JsonProperty("comment_count")] public long CommentCount { get; set; }
 
-        [JsonProperty("share_count")] public int ShareCount { get; set; }
+        [JsonProperty("share_count")] public long ShareCount { get; set; }
 
         [JsonProperty("aweme_id")] public string AwemeId { get; set; }
 
-        [JsonProperty("digg_count")] public int DiggCount { get; set; }
+        [JsonProperty("digg_count")] public long DiggCount { get; set; }
 
-        [JsonProperty("play_count")] public int PlayCount { get; set; }
+        [JsonProperty("play_count")] public long PlayCount { get; set; }
 
-        [JsonProperty("collect_count")] public int CollectCount { get; set; }
+        [JsonProperty("collect_count")] public long CollectCount { get; set; }
     }
 
     public class TextExtra

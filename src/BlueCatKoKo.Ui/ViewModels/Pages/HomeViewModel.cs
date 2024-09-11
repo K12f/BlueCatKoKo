@@ -3,7 +3,6 @@ using System.IO;
 
 using BlueCatKoKo.Ui.Constants;
 using BlueCatKoKo.Ui.Models;
-using BlueCatKoKo.Ui.Models.Pages;
 using BlueCatKoKo.Ui.Services;
 
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -25,7 +24,8 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
     public partial class HomeViewModel : ViewModelBase
     {
         private readonly IOptions<AppConfig> _appConfig;
-        private readonly IDownloaderService _douyinDownloaderService;
+        private readonly IShortVideoService _douYinShortVideoService;
+        private readonly IShortVideoService _kuaiShortVideoService;
         private readonly ILogger _logger;
 
         // 解析出的视频数据
@@ -55,7 +55,8 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
         [ObservableProperty] private string _isParsed;
 
         public HomeViewModel(IMessenger messenger, ILogger logger,
-            IDownloaderService douyinDownloaderService,
+            DouYinShortVideoService douYinShortVideoService,
+            KuaiShouShortVideoService kuaiShortVideoService,
             IOptions<AppConfig> appConfig)
         {
             Messenger = messenger;
@@ -71,7 +72,8 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
 
 
             _logger = logger;
-            _douyinDownloaderService = douyinDownloaderService;
+            _douYinShortVideoService = douYinShortVideoService;
+            _kuaiShortVideoService = kuaiShortVideoService;
             _appConfig = appConfig;
 
 
@@ -104,18 +106,29 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
                     throw new ValidationException(errorMessage);
                 }
 
-                if (!DownloadUrlText.Contains("https://v.douyin.com"))
+                if (!DownloadUrlText.Contains("https://"))
                 {
                     throw new ValidationException("请输入正确的分享链接");
                 }
 
-                var downloadUrl = await _douyinDownloaderService.ExtractUrlAsync(DownloadUrlText);
-                var douYinRouterData = await _douyinDownloaderService.ExtractVideoDataAsync(downloadUrl);
+                if (DownloadUrlText.Contains(ShortVideoPlatformEnum.DouYin.ToString().ToLower()))
+                {
+                    var downloadUrl = await _douYinShortVideoService.ExtractUrlAsync(DownloadUrlText);
+                    Data = await _douYinShortVideoService.ExtractVideoDataAsync(downloadUrl);
+                }
+                else if (DownloadUrlText.Contains(ShortVideoPlatformEnum.KuaiShou.ToString().ToLower()))
+                {
+                    var downloadUrl = await _kuaiShortVideoService.ExtractUrlAsync(DownloadUrlText);
+                    Data = await _kuaiShortVideoService.ExtractVideoDataAsync(downloadUrl);
+                }
+                else
+                {
+                    throw new ValidationException("暂不支持该平台");
+                }
 
-                Data = douYinRouterData;
-                
+
                 // 绑定视频
-                using Media media = new(LibVlc, new Uri(douYinRouterData.VideoUrl));
+                using Media media = new(LibVlc, new Uri(Data.VideoUrl));
                 // 这里设置选项，防止自动播放
                 MediaPlayer.Media = media;
                 MediaPlayer.Pause();
@@ -167,17 +180,37 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
                     throw new InvalidDataException("无效的下载链接");
                 }
 
-                string filename = _appConfig.Value.DownloadPath + Data.VideoId + ".mp4";
-                await _douyinDownloaderService.DownloadAsync(Data.VideoUrl, _appConfig.Value.DownloadPath,
-                    Data.VideoId + ".mp4",
-                    (sender, e) =>
-                    {
-                        DownloadProcess = e.ProgressPercentage;
-                    }, (sender, e) =>
-                    {
-                        DownloadProcess = 100;
-                        message = filename + "下载成功~";
-                    });
+                var filename = _appConfig.Value.DownloadPath + Data.VideoId + ".mp4";
+
+                switch (Data.Platform)
+                {
+                    case ShortVideoPlatformEnum.DouYin:
+                        await _douYinShortVideoService.DownloadAsync(Data.VideoUrl, _appConfig.Value.DownloadPath,
+                            Data.VideoId + ".mp4",
+                            (sender, e) =>
+                            {
+                                DownloadProcess = e.ProgressPercentage;
+                            }, (sender, e) =>
+                            {
+                                DownloadProcess = 100;
+                                message = filename + "下载成功~";
+                            });
+                        break;
+                    case ShortVideoPlatformEnum.KuaiShou:
+                        await _kuaiShortVideoService.DownloadAsync(Data.VideoUrl, _appConfig.Value.DownloadPath,
+                            Data.VideoId + ".mp4",
+                            (sender, e) =>
+                            {
+                                DownloadProcess = e.ProgressPercentage;
+                            }, (sender, e) =>
+                            {
+                                DownloadProcess = 100;
+                                message = filename + "下载成功~";
+                            });
+                        break;
+                    default:
+                        throw new ValidationException("暂不支持该平台");
+                }
             }
             catch (Exception ex)
             {

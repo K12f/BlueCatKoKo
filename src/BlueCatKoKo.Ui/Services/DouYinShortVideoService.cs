@@ -3,8 +3,8 @@ using System.IO;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 
+using BlueCatKoKo.Ui.Constants;
 using BlueCatKoKo.Ui.Models;
-using BlueCatKoKo.Ui.Models.Pages;
 
 using Downloader;
 
@@ -16,7 +16,10 @@ using Serilog;
 
 namespace BlueCatKoKo.Ui.Services
 {
-    public class DouyinDownloaderService : IDownloaderService
+    /// <summary>
+    /// 抖音下载服务
+    /// </summary>
+    public class DouYinShortVideoService : IShortVideoService
     {
         private static readonly Dictionary<string, string> _defaultHeaders = new()
         {
@@ -44,7 +47,7 @@ namespace BlueCatKoKo.Ui.Services
 
         private readonly ILogger _logger;
 
-        public DouyinDownloaderService(ILogger logger)
+        public DouYinShortVideoService(ILogger logger)
         {
             _logger = logger;
         }
@@ -58,7 +61,7 @@ namespace BlueCatKoKo.Ui.Services
        /// <returns></returns>
         public async Task<string> ExtractUrlAsync(string text)
         {
-            _logger.Information("开始解析文本 {text}", text);
+            _logger.Information("开始解析抖音链接 {text}", text);
             return Regex.Match(text, @"https?://[^\s]+").Value;
         }
 
@@ -108,7 +111,7 @@ namespace BlueCatKoKo.Ui.Services
                 string videoJson = matchJson.Groups[1].Value;
                 _logger.Information("开始解析匹配到的json {videoJson}", videoJson);
                 // 反序列化JSON字符串为C#对象
-                DouyinShareRouterData? videoData = JsonConvert.DeserializeObject<DouyinShareRouterData>(videoJson);
+                DouYinShareRouterData? videoData = JsonConvert.DeserializeObject<DouYinShareRouterData>(videoJson);
 
                 if (videoData is null)
                 {
@@ -119,6 +122,7 @@ namespace BlueCatKoKo.Ui.Services
 
                 return new VideoModel
                 {
+                    Platform = ShortVideoPlatformEnum.DouYin,
                     VideoId = videoInfoData.AwemeId,
                     AuthorName = videoInfoData.Author.Nickname,
                     AuthorAvatar = videoInfoData.Author.AvatarThumb.UrlList.First().ToString(),

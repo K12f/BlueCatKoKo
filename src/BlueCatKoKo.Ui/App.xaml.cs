@@ -51,7 +51,8 @@ namespace BlueCatKoKo.Ui
 
                 // Service containing 
                 container.AddSingleton<INavigationService, NavigationService>();
-                container.AddSingleton<IDownloaderService, DouyinDownloaderService>();
+                container.AddTransient<DouYinShortVideoService>();
+                container.AddTransient<KuaiShouShortVideoService>();
 
                 // Main window with navigation
                 container.AddSingleton<MainWindowViewModel>();
