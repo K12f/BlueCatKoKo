@@ -26,18 +26,25 @@
           <TextBlock Text="仓库地址" FontSize="20" FontWeight="Bold" />
           <TextBlock HorizontalAlignment="Left" Text="{Binding ViewModel.RepositoryUrl}"
                      Style="{StaticResource TextBlockDefaultBold}">
-            
-            <Button Content="查看新版本" Margin="5" Command="{Binding ViewModel.OpenRepositoryCommand}" CommandParameter="/releases"/>
-            <Button Content="反馈意见" Margin="5" Command="{Binding ViewModel.OpenRepositoryCommand}" CommandParameter="/issues"/>
+
+            <Button Content="查看新版本" Margin="5" Command="{Binding ViewModel.OpenRepositoryCommand}"
+                    CommandParameter="/releases" />
+            <Button Content="反馈意见" Margin="5" Command="{Binding ViewModel.OpenRepositoryCommand}"
+                    CommandParameter="/issues" />
           </TextBlock>
 
           <TextBlock Text="免责声明" FontSize="20" FontWeight="Bold" />
           <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding ViewModel.AboutText}">
             <Run FontFamily="Times New Roman" Foreground="DarkGray">
-  
             </Run>
             <LineBreak />
           </TextBlock>
+          <TextBlock Text="赞赏一下吧😄" FontSize="20" FontWeight="Bold"/>
+          <Border CornerRadius="4,4,0,0" Width="300" Height="300">
+            <Border.Background>
+              <ImageBrush ImageSource="/Assets/reward.png" Stretch="UniformToFill" />
+            </Border.Background>
+          </Border>
         </hc:UniformSpacingPanel>
       </hc:Col>
     </hc:Row>
