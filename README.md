@@ -34,3 +34,6 @@ https://github.com/K12f/BlueCatKoKo/releases
 ## 喜欢就赞赏一下吧😄
 
 ![reward.png](./assets/reward.png)
+
+## License
+This project is licensed under the GPL License.
