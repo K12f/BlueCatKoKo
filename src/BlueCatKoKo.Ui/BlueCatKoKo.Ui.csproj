@@ -82,8 +82,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="applicationIcon.ico"/>
-    <Content Include="applicationIcon.ico"/>
+    <None Remove="applicationicon.ico"/>
+    <Resource Include="applicationicon.ico" />
   </ItemGroup>
 
   <ItemGroup>

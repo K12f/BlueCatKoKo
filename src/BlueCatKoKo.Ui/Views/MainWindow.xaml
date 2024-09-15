@@ -46,7 +46,7 @@
     <ui:TitleBar
       Title="{Binding ViewModel.ApplicationTitle, Mode=OneWay}"
       Grid.Row="0"
-      Icon="pack://application:,,,/applicationicon.ico" />
+      Icon="/applicationicon.ico" />
 
     <hc:NotifyIcon Grid.Row="0" Text="{Binding ViewModel.ApplicationTitle}" IsBlink="False" Visibility="Visible"
                    Icon="/Assets/applicationicon.jpg">
