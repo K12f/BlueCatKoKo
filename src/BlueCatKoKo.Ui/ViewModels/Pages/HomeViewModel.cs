@@ -132,6 +132,7 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
                 // 这里设置选项，防止自动播放
                 MediaPlayer.Media = media;
                 MediaPlayer.Pause();
+                IsParsed = "Visible";
             }
             catch (Exception ex)
             {
@@ -141,7 +142,6 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
             finally
             {
                 IsDisableParsingBtn = true;
-                IsParsed = "Visible";
                 DownloaderMessage downloadMessage = new(type, message, DownloadUrlText);
                 Messenger.Send(new ValueChangedMessage<DownloaderMessage>(downloadMessage));
             }
