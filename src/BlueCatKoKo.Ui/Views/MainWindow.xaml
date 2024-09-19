@@ -22,41 +22,44 @@
                  Height="768"
                  d:DesignHeight="768"
                  d:DesignWidth="1366">
-  <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="*" />
-    </Grid.RowDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-    <ui:NavigationView
-      x:Name="RootNavigation"
-      Grid.Row="1"
-      IsBackButtonVisible="Collapsed"
-      IsPaneToggleVisible="True"
-      OpenPaneLength="150"
-      FooterMenuItemsSource="{Binding ViewModel.NavigationFooter, Mode=OneWay}"
-      MenuItemsSource="{Binding ViewModel.NavigationItems, Mode=OneWay}">
-      <ui:NavigationView.Header>
-        <ui:BreadcrumbBar
-          Margin="42,32,0,0"
-          FontSize="28"
-          FontWeight="DemiBold" />
-      </ui:NavigationView.Header>
-    </ui:NavigationView>
-    <ui:TitleBar
-      Title="{Binding ViewModel.ApplicationTitle, Mode=OneWay}"
-      Grid.Row="0"
-      Icon="/applicationicon.ico" />
+        <ui:NavigationView
+            x:Name="RootNavigation"
+            Grid.Row="1"
+            IsBackButtonVisible="Collapsed"
+            IsPaneToggleVisible="True"
+            OpenPaneLength="150"
+            FooterMenuItemsSource="{Binding ViewModel.NavigationFooter, Mode=OneWay}"
+            MenuItemsSource="{Binding ViewModel.NavigationItems, Mode=OneWay}">
+            <ui:NavigationView.Header>
+                <ui:BreadcrumbBar
+                    Margin="42,32,0,0"
+                    FontSize="28"
+                    FontWeight="DemiBold" />
+            </ui:NavigationView.Header>
+        </ui:NavigationView>
+        <ui:TitleBar
+            Title="{Binding ViewModel.ApplicationTitle, Mode=OneWay}"
+            Grid.Row="0">
+            <ui:TitleBar.Icon>
+                <ui:ImageIcon Source="pack://application:,,,/applicationicon.ico" />
+            </ui:TitleBar.Icon>
+        </ui:TitleBar>
 
-    <hc:NotifyIcon Grid.Row="0" Text="{Binding ViewModel.ApplicationTitle}" IsBlink="False" Visibility="Visible"
-                   Icon="/Assets/applicationicon.jpg">
-      <hc:NotifyIcon.ContextMenu>
-        <ContextMenu>
-          <MenuItem Command="hc:ControlCommands.PushMainWindow2Top" Header="首页" />
-          <MenuItem Command="hc:ControlCommands.ShutdownApp" Header="退出" />
-        </ContextMenu>
-      </hc:NotifyIcon.ContextMenu>
-    </hc:NotifyIcon>
+        <hc:NotifyIcon Grid.Row="0" Text="{Binding ViewModel.ApplicationTitle}" IsBlink="False" Visibility="Visible"
+                       Icon="/Assets/applicationicon.jpg">
+            <hc:NotifyIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="hc:ControlCommands.PushMainWindow2Top" Header="首页" />
+                    <MenuItem Command="hc:ControlCommands.ShutdownApp" Header="退出" />
+                </ContextMenu>
+            </hc:NotifyIcon.ContextMenu>
+        </hc:NotifyIcon>
 
-  </Grid>
+    </Grid>
 </ui:FluentWindow>
