@@ -1,0 +1,324 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?qimpvi');
+  src:  url('fonts/icomoon.eot?qimpvi#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?qimpvi') format('truetype'),
+    url('fonts/icomoon.woff?qimpvi') format('woff'),
+    url('fonts/icomoon.svg?qimpvi#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-CeliakeyboardEnassociate:before {
+  content: "\e900";
+}
+.icon-CeliakeyboardMenuLanguage:before {
+  content: "\e901";
+}
+.icon-Circle:before {
+  content: "\e902";
+}
+.icon-ContactsDelete:before {
+  content: "\e903";
+}
+.icon-ContactSencryptionCalls:before {
+  content: "\e904";
+}
+.icon-DeviceMateBook:before {
+  content: "\e905";
+}
+.icon-FilesNameDrive:before {
+  content: "\e906";
+}
+.icon-GalleryCollage:before {
+  content: "\e907";
+}
+.icon-GalleryCreate:before {
+  content: "\e908";
+}
+.icon-GalleryMaterialSelectCheckbo:before {
+  content: "\e909";
+}
+.icon-GalleryMoveIn10:before {
+  content: "\e90a";
+}
+.icon-GalleryMoveOut:before {
+  content: "\e90b";
+}
+.icon-GalleryPhotoEditMore:before {
+  content: "\e90c";
+}
+.icon-GalleryRectify:before {
+  content: "\e90d";
+}
+.icon-GalleryRename:before {
+  content: "\e90e";
+}
+.icon-GallerySet:before {
+  content: "\e90f";
+}
+.icon-GallerySortOrder:before {
+  content: "\e910";
+}
+.icon-GallerySortReverse:before {
+  content: "\e911";
+}
+.icon-IcoMoon:before {
+  content: "\e912";
+}
+.icon-MessageForwarding:before {
+  content: "\e913";
+}
+.icon-MessageTheme:before {
+  content: "\e914";
+}
+.icon-PowerOff:before {
+  content: "\e915";
+}
+.icon-PublicAdd:before {
+  content: "\e916";
+}
+.icon-PublicAddFilled:before {
+  content: "\e917";
+}
+.icon-PublicAddNorm:before {
+  content: "\e918";
+}
+.icon-PublicApp:before {
+  content: "\e919";
+}
+.icon-PublicArrowLeft:before {
+  content: "\e91a";
+}
+.icon-PublicArrowRight:before {
+  content: "\e91b";
+}
+.icon-PublicArrowUp0:before {
+  content: "\e91c";
+}
+.icon-PublicArrowUp1:before {
+  content: "\e91d";
+}
+.icon-PublicBack:before {
+  content: "\e91e";
+}
+.icon-PublicBackToTop:before {
+  content: "\e91f";
+}
+.icon-PublicBrightness:before {
+  content: "\e920";
+}
+.icon-PublicCancel:before {
+  content: "\e921";
+}
+.icon-PublicCancelFilled:before {
+  content: "\e922";
+}
+.icon-PublicClose:before {
+  content: "\e923";
+}
+.icon-PublicCloudDownload:before {
+  content: "\e924";
+}
+.icon-PublicCloudUpload:before {
+  content: "\e925";
+}
+.icon-PublicConnection:before {
+  content: "\e926";
+}
+.icon-PublicContacts:before {
+  content: "\e927";
+}
+.icon-PublicCopy:before {
+  content: "\e928";
+}
+.icon-PublicDelete:before {
+  content: "\e929";
+}
+.icon-PublicDoNotDisturb:before {
+  content: "\e92a";
+}
+.icon-PublicDownload:before {
+  content: "\e92b";
+}
+.icon-PublicEdit:before {
+  content: "\e92c";
+}
+.icon-PublicEmail:before {
+  content: "\e92d";
+}
+.icon-PublicEmailSend:before {
+  content: "\e92e";
+}
+.icon-PublicEnlarge:before {
+  content: "\e92f";
+}
+.icon-PublicFail:before {
+  content: "\e930";
+}
+.icon-PublicFolder:before {
+  content: "\e931";
+}
+.icon-PublicForbid:before {
+  content: "\e932";
+}
+.icon-PublicHelp:before {
+  content: "\e933";
+}
+.icon-PublicHighLights:before {
+  content: "\e934";
+}
+.icon-PublicHome:before {
+  content: "\e935";
+}
+.icon-PublicInputSearch:before {
+  content: "\e936";
+}
+.icon-PublicKeyboard:before {
+  content: "\e937";
+}
+.icon-PublicListCycle:before {
+  content: "\e938";
+}
+.icon-PubliClock:before {
+  content: "\e939";
+}
+.icon-PublicMessage:before {
+  content: "\e93a";
+}
+.icon-PublicMobileData:before {
+  content: "\e93b";
+}
+.icon-PublicMove:before {
+  content: "\e93c";
+}
+.icon-PublicNavigation:before {
+  content: "\e93d";
+}
+.icon-PublicOk:before {
+  content: "\e93e";
+}
+.icon-PublicOkFilled:before {
+  content: "\e93f";
+}
+.icon-PublicPicture:before {
+  content: "\e940";
+}
+.icon-PublicPrinter:before {
+  content: "\e941";
+}
+.icon-PublicQuit:before {
+  content: "\e942";
+}
+.icon-PublicRandom:before {
+  content: "\e943";
+}
+.icon-PublicReduce:before {
+  content: "\e944";
+}
+.icon-PublicRefresh:before {
+  content: "\e945";
+}
+.icon-PublicRemove:before {
+  content: "\e946";
+}
+.icon-PublicReset:before {
+  content: "\e947";
+}
+.icon-PublicRing:before {
+  content: "\e948";
+}
+.icon-PublicRingOff:before {
+  content: "\e949";
+}
+.icon-PublicRotate:before {
+  content: "\e94a";
+}
+.icon-PublicSave:before {
+  content: "\e94b";
+}
+.icon-PublicScan:before {
+  content: "\e94c";
+}
+.icon-PublicSearch:before {
+  content: "\e94d";
+}
+.icon-PublicSecurity:before {
+  content: "\e94e";
+}
+.icon-PublicSend:before {
+  content: "\e94f";
+}
+.icon-PublicSettings:before {
+  content: "\e950";
+}
+.icon-PublicShare:before {
+  content: "\e951";
+}
+.icon-PublicSift:before {
+  content: "\e952";
+}
+.icon-PublicSound:before {
+  content: "\e953";
+}
+.icon-PublicText:before {
+  content: "\e954";
+}
+.icon-PublicThemes:before {
+  content: "\e955";
+}
+.icon-PublicThumbsup:before {
+  content: "\e956";
+}
+.icon-PublicTodo:before {
+  content: "\e957";
+}
+.icon-PublicTopping:before {
+  content: "\e958";
+}
+.icon-PublicUnlock:before {
+  content: "\e959";
+}
+.icon-PublicUpgrade:before {
+  content: "\e95a";
+}
+.icon-PublicUpload:before {
+  content: "\e95b";
+}
+.icon-PublicVolumeDown:before {
+  content: "\e95c";
+}
+.icon-PublicWirelessProjection:before {
+  content: "\e95d";
+}
+.icon-PublicWorldClock:before {
+  content: "\e95e";
+}
+.icon-QuickReply:before {
+  content: "\e95f";
+}
+.icon-Reboot:before {
+  content: "\e960";
+}
+.icon-SearchThings:before {
+  content: "\e961";
+}
+.icon-Squircle:before {
+  content: "\e962";
+}

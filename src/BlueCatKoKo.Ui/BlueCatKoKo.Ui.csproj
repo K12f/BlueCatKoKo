@@ -7,7 +7,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <ApplicationIcon>applicationIcon.ico</ApplicationIcon>
         <Platforms>AnyCPU;x64</Platforms>
-        <AssemblyName>BetterGI</AssemblyName>
+        <AssemblyName>BlueCatKoKo</AssemblyName>
         <AssemblyVersion>1.2.5</AssemblyVersion>
         <UseWPF>true</UseWPF>
 

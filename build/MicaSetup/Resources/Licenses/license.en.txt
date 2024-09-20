@@ -1,0 +1,37 @@
+This User License Agreement (hereinafter, "Agreement") creates a legally binding Agreement between you, as a user of our services (hereinafter, "User"). You will be referred to through second-person pronouns such as "your" and "yours." We, the Company, will be referred to with pronouns such as "us," "our," and "ours." Collectively, you and the Company may be referred to as the "Parties" and individually as "Party."
+By accessing, downloading, installing, or otherwise using our Software in any way, you agree to be bound by this Agreement in its entirety. If you do not agree, you must cease use of the Software immediately.
+
+SOFTWARE LICENSE: When you lawfully access the Software, whether through purchase or other lawful means, we grant you, subject to all of the terms and conditions of this Agreement, a non-exclusive, non-transferable, limited, revocable personal license to use the Software ("License"). This License extends to the use of documentation, data, or information developed by the Company, and other materials which may assist in your use of the Software. This License may not be used for any business or commercial purposes. This License may not be transferred to any third parties without express, lawful, written permission from the Company and this License terminates upon your cessation of use of the Software.
+This License shall be applicable to all lawful Users of the Software, unless a separate written agreement has been executed between you and the Company.
+
+ADDITIONAL TERMS: Additional terms may be applicable to the Parties' relationship with each other, such as the Company Terms & Conditions or Terms of Use, the Company Privacy Policy, and any other such written agreements governing your relationship with us. Nothing contained herein is intended to restrict the terms of any other written agreement. Instead, all relevant documents shall be construed as broadly as possible.
+
+INTELLECTUAL PROPERTY: You agree that the Software, Company website and all services provided by the Company are the property of the Company, including all copyrights, trademarks, trade secrets, patents, and other intellectual property ("Company IP"). You agree that the Company owns all right, title and interest in and to the Company IP and that you will not use the Company IP for any unlawful or infringing purpose. You agree not to reproduce or distribute the Company IP in any way, including electronically or via registration of any new trademarks, trade names, service marks or Uniform Resource Locators (URLs), without express written permission from the Company.
+
+ACCEPTABLE USE: You agree not to use the Software for any unlawful purpose or any purpose prohibited under this clause. You agree not to use the Software in any way that could damage the Company website, services, or general business of the Company.
+You further agree not to use the Software:
+I) To harass, abuse, or threaten others or otherwise violate any person's legal rights;
+II) To violate any intellectual property rights of the Company or any third party;
+III) To upload or otherwise disseminate any computer viruses or other software that may damage the property of another;
+IV) To perpetrate any fraud;
+V) To engage in or create any unlawful gambling, sweepstakes, or pyramid scheme;
+VI) To publish or distribute any obscene or defamatory material;
+VII) To publish or distribute any material that incites violence, hate, or discrimination towards any group;
+VIII) To unlawfully gather information about others.
+
+REVERSE ENGINEERING & SECURITY: You agree not to undertake any of the following actions:
+a) Reverse engineer, or attempt to reverse engineer or disassemble the Software or any code within or related to the Software or the Company website;
+b) Violate the security of the Software through any unauthorized access, circumvention of encryption or other security tools, data mining or interference to any host, user or network;
+c) Copy or otherwise distribute copies of the Software unlawfully, such as through any peer-to-peer network or other intellectual property circumvention tool.
+
+INDEMNIFICATION: You agree to defend and indemnify the Company and any of its affiliates (if applicable) and hold us harmless against any and all legal claims and demands, including reasonable attorney's fees, which may arise from or relate to your use or misuse of the Software, your breach of this Agreement, or your conduct or actions. You agree that the Company shall be able to select its own legal counsel and may participate in its own defense, if the Company wishes.
+
+SPAM POLICY: You are strictly prohibited from using the Software or any of the Company's services for illegal spam activities, including gathering email addresses and personal information from others or sending any mass commercial emails.
+
+SERVICE INTERRUPTIONS: The Company may need to interrupt access to the Software to perform maintenance or emergency services on a scheduled or unscheduled basis. You agree that your access to the Software may be affected by unanticipated or unscheduled downtime, for any reason, but that the Company shall have no liability for any damage or loss caused as a result of such downtime.
+
+NO WARRANTIES: You agree that your use of the Software is at your sole and exclusive risk and that the Software is provided on "As Is" basis. The Company hereby expressly disclaims any and all express or implied warranties of any kind, including, but not limited to the implied warranty of fitness for a particular purpose and the implied warranty of merchantability. The Company makes no warranties that the Software will meet your needs or that access to the Software will be uninterrupted or error-free. The Company also makes no warranties as to the reliability or accuracy of any information contained within the Software. You agree that any damage that may occur to you, through your computer system, or as a result of loss of your data from your use of the Software is your sole responsibility and that the Company is not liable for any such damage or loss.
+
+ASSIGNMENT: This Agreement, or the rights granted hereunder, may not be assigned, sold, leased or otherwise transferred in whole or part by you. Should this Agreement, or the rights granted hereunder, by assigned, sold, leased or otherwise transferred by the Company, the rights and liabilities of the Company will bind and inure to any assignees, administrators, successors, and executors.
+
+FORCE MAJEURE: The Company is not liable for any failure to perform due to causes beyond its reasonable control including, but not limited to, acts of God, acts of civil authorities, acts of military authorities, riots, embargoes, acts of nature and natural disasters, and other acts which may be due to unforeseen circumstances.

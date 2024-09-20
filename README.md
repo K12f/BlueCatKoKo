@@ -18,6 +18,9 @@ https://github.com/K12f/BlueCatKoKo/releases
 
 - .net>=8.0
 
+## 打包工具
+- MicaSetup
+
 ## 版本ChangeLog
 
 > 请查看release中的log
