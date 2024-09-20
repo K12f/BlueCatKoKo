@@ -12,8 +12,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("BlueCatKoKo Uninst")]
 [assembly: AssemblyCompany("K12f")]
 [assembly: AssemblyCopyright("Under MIT License. Copyright (c) K12f Contributors.")]
-[assembly: AssemblyVersion("0.1.2.0")]
-[assembly: AssemblyFileVersion("0.1.2.0")]
+[assembly: AssemblyVersion("1.2.5.0")]
+[assembly: AssemblyFileVersion("1.2.5.0")]
 
 namespace MicaSetup;
 
