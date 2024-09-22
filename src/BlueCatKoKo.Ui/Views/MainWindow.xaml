@@ -27,7 +27,13 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
+        <ui:TitleBar
+            Title="{Binding ViewModel.ApplicationTitle, Mode=OneWay}"
+            Grid.Row="0">
+            <ui:TitleBar.Icon>
+                <ui:ImageIcon Source="pack://application:,,,/applicationicon.ico" />
+            </ui:TitleBar.Icon>
+        </ui:TitleBar>
         <ui:NavigationView
             x:Name="RootNavigation"
             Grid.Row="1"
@@ -43,13 +49,7 @@
                     FontWeight="DemiBold" />
             </ui:NavigationView.Header>
         </ui:NavigationView>
-        <ui:TitleBar
-            Title="{Binding ViewModel.ApplicationTitle, Mode=OneWay}"
-            Grid.Row="0">
-            <ui:TitleBar.Icon>
-                <ui:ImageIcon Source="pack://application:,,,/applicationicon.ico" />
-            </ui:TitleBar.Icon>
-        </ui:TitleBar>
+
 
         <hc:NotifyIcon Grid.Row="0" Text="{Binding ViewModel.ApplicationTitle}" IsBlink="False" Visibility="Visible"
                        Icon="/Assets/applicationicon.jpg">

@@ -10,6 +10,7 @@
         <AssemblyName>BlueCatKoKo</AssemblyName>
         <AssemblyVersion>1.2.5</AssemblyVersion>
         <UseWPF>true</UseWPF>
+        <MvvmToolkitEnableINotifyPropertyChangingSupport>false</MvvmToolkitEnableINotifyPropertyChangingSupport>
 
         <BeautySharedRuntimeMode>False</BeautySharedRuntimeMode>
         <!-- beauty into sub-directory, default is libs, quote with "" if contains space  -->
@@ -48,7 +49,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2"/>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2"/>
         <PackageReference Include="Downloader" Version="3.1.2"/>
         <PackageReference Include="HandyControl" Version="3.5.1"/>
         <PackageReference Include="LibVLCSharp.WPF" Version="3.9.0"/>
