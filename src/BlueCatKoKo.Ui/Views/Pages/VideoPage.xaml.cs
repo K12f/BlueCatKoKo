@@ -1,19 +1,17 @@
 using System.Windows.Controls;
-
 using BlueCatKoKo.Ui.ViewModels.Pages;
 
-namespace BlueCatKoKo.Ui.Views.Pages
+namespace BlueCatKoKo.Ui.Views.Pages;
+
+public partial class VideoPage : Page
 {
-    public partial class VideoPage : Page
+    public VideoViewModel ViewModel { get; }
+
+    public VideoPage(VideoViewModel viewModel)
     {
-        public VideoViewModel ViewModel { get; }
+        ViewModel = viewModel;
+        DataContext = this;
 
-        public VideoPage(VideoViewModel viewModel)
-        {
-            ViewModel = viewModel;
-            DataContext = this;
-
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

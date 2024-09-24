@@ -1,7 +1,5 @@
-namespace BlueCatKoKo.Ui.ViewModels.Pages
+namespace BlueCatKoKo.Ui.ViewModels.Pages;
+
+public partial class CookiesViewModel : ViewModelBase
 {
-    public partial class CookiesViewModel:ViewModelBase
-    {
-        
-    }
 }

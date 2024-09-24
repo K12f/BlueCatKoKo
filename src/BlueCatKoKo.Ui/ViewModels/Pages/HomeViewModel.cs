@@ -72,6 +72,7 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
 
 
             _logger = logger;
+            _logger.Information("AppConfig: {@appConfig}", appConfig);
             _douYinShortVideoService = douYinShortVideoService;
             _kuaiShortVideoService = kuaiShortVideoService;
             _appConfig = appConfig;

@@ -1,12 +1,11 @@
 using System.Windows.Controls;
 
-namespace BlueCatKoKo.Ui.Views.Pages
+namespace BlueCatKoKo.Ui.Views.Pages;
+
+public partial class DownloaderPage : Page
 {
-    public partial class DownloaderPage : Page
+    public DownloaderPage()
     {
-        public DownloaderPage()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }
