@@ -1,3 +1,4 @@
+using System.Configuration;
 using System.IO;
 using BlueCatKoKo.Ui.Models;
 using Newtonsoft.Json;
@@ -27,21 +28,25 @@ public class AppConfigService
         return Path.Combine(StartUpPath, relativePath);
     }
 
-    public void Write(AppConfig config)
+    public void Write(AppConfig appConfig)
     {
         _rwLock.EnterWriteLock();
         try
         {
-            var path = Absolute(config.DownloadPath ?? "./");
+            var path = Absolute(appConfig.DownloadPath ?? "./");
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 
             var file = Path.Combine(StartUpPath, _appSettingsFile);
             _logger.Information("保存配置文件:{file}", file);
-            _logger.Information("保存配置内容:{@config}", config);
-            var appSettings = File.ReadAllText(file);
-            var appSettingsObj = JObject.Parse(appSettings);
-            appSettingsObj[nameof(AppConfig)] = JsonConvert.SerializeObject(config);
-            File.WriteAllText(file, appSettingsObj.ToString());
+            _logger.Information("保存配置内容:{@config}", appConfig);
+            var appSettingsJson = File.ReadAllText(file);
+            var appSettings = JsonConvert.DeserializeObject<AppSetting>(appSettingsJson);
+            if (appSettings is null)
+            {
+                throw new ConfigurationErrorsException("解析配置文件失败");
+            }
+            appSettings.AppConfig = appConfig;
+            File.WriteAllText(file, JsonConvert.SerializeObject(appSettings));
         }
         catch (Exception e)
         {
