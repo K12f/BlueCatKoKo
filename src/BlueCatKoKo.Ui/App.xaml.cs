@@ -1,22 +1,19 @@
-﻿using System.Text;
+﻿using System.Reflection;
+using System.Text;
 using System.Windows;
 using System.Windows.Threading;
-
 using BlueCatKoKo.Ui.Models;
 using BlueCatKoKo.Ui.Services;
 using BlueCatKoKo.Ui.ViewModels;
 using BlueCatKoKo.Ui.ViewModels.Pages;
 using BlueCatKoKo.Ui.Views;
 using BlueCatKoKo.Ui.Views.Pages;
-
 using CommunityToolkit.Mvvm.Messaging;
-
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-
 using Serilog;
-
 using Wpf.Ui;
 
 namespace BlueCatKoKo.Ui
@@ -37,7 +34,7 @@ namespace BlueCatKoKo.Ui
                 Log.Logger = new LoggerConfiguration()
                     .WriteTo.Console()
                     .WriteTo.File(
-                        "log.txt", rollingInterval: RollingInterval.Day,encoding:Encoding.UTF8
+                        "log.txt", rollingInterval: RollingInterval.Day, encoding: Encoding.UTF8
                     )
                     .CreateLogger();
                 logging.Services.AddSingleton(Log.Logger);
@@ -46,7 +43,27 @@ namespace BlueCatKoKo.Ui
             {
                 container.AddHostedService<ApplicationHostService>();
                 // configuration
-                container.Configure<AppConfig>(context.Configuration.GetSection(nameof(AppConfig)));
+                // 绑定 AppConfig 配置段
+                var appConfig = new AppConfig();
+                context.Configuration.GetSection(nameof(AppConfig)).Bind(appConfig);
+
+                // 获取程序集版本
+                var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
+
+                appConfig.Version = version; // 将版本赋值给 AppConfig
+
+                //                 container.Configure<AppConfig>(context.Configuration.GetSection(nameof(AppConfig)));
+
+                container.AddSingleton(appConfig);
+                container.Configure<AppConfig>(config =>
+                {
+                    config.Name = appConfig.Name;
+                    config.TrayTitle = appConfig.TrayTitle;
+                    config.Description = appConfig.Description;
+                    config.DownloadPath = appConfig.DownloadPath;
+                    config.RepositoryUrl = appConfig.RepositoryUrl;
+                    config.Version = appConfig.Version;
+                });
                 container.AddSingleton<AppConfigService>();
 
                 // Service containing 
