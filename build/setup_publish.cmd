@@ -21,6 +21,7 @@ echo [build app using vs2022]
 cd /d %~dp0
 rd /s /q %app_bin_dir%
 cd /d %app_dir%
+cd ..\
 dotnet restore
 dotnet publish -c Release -p:PublishProfile=FolderProfile
 
@@ -46,7 +47,6 @@ msbuild MicaSetup\MicaSetup.csproj /t:Build /p:Configuration=Release /p:DeployOn
 @echo [finish]
 cd /d %~dp0
 dir
-del /f /q MicaSetup.exe
 copy /y .\MicaSetup\bin\Release\net472\MicaSetup.exe .\
 move MicaSetup.exe %setup_name%_Setup_v%version%.exe
 
