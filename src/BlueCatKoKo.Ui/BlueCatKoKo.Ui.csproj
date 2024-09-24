@@ -23,7 +23,7 @@
         <!-- set to True if you want to disable -->
         <DisableBeauty>False</DisableBeauty>
         <!-- set to False if you want to beauty on build -->
-        <BeautyOnPublishOnly>False</BeautyOnPublishOnly>
+        <BeautyOnPublishOnly>True</BeautyOnPublishOnly>
         <!-- DO NOT TOUCH THIS OPTION -->
         <BeautyNoRuntimeInfo>False</BeautyNoRuntimeInfo>
         <!-- set to True if you want to allow 3rd debuggers(like dnSpy) debugs the app -->
