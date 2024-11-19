@@ -181,13 +181,13 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
                     throw new InvalidDataException("无效的下载链接");
                 }
 
-                var filename = _appConfig.Value.DownloadPath + Data.VideoId + ".mp4";
+                var filename = _appConfig.Value.DownloadPath + Data.Desc + ".mp4";
 
                 switch (Data.Platform)
                 {
                     case ShortVideoPlatformEnum.DouYin:
                         await _douYinShortVideoService.DownloadAsync(Data.VideoUrl, _appConfig.Value.DownloadPath,
-                            Data.VideoId + ".mp4",
+                            Data.Desc + ".mp4",
                             (sender, e) =>
                             {
                                 DownloadProcess = e.ProgressPercentage;
@@ -199,7 +199,7 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
                         break;
                     case ShortVideoPlatformEnum.KuaiShou:
                         await _kuaiShortVideoService.DownloadAsync(Data.VideoUrl, _appConfig.Value.DownloadPath,
-                            Data.VideoId + ".mp4",
+                            Data.Desc + ".mp4",
                             (sender, e) =>
                             {
                                 DownloadProcess = e.ProgressPercentage;

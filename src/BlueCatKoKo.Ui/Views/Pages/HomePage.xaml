@@ -21,7 +21,7 @@
       <hc:Row Margin="0,0,0,0">
         <hc:Col Span="20">
           <TextBox Text="{Binding ViewModel.DownloadUrlText}"
-                   hc:InfoElement.Placeholder="请粘贴抖音/快手 分享链接"
+                   hc:InfoElement.Placeholder="请粘贴抖音 分享链接"
                    Style="{StaticResource TextBoxExtend}" />
         </hc:Col>
         <hc:Col Span="4">
