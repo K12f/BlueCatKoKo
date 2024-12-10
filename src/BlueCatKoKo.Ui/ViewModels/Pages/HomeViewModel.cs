@@ -1,21 +1,16 @@
 using System.ComponentModel.DataAnnotations;
 using System.IO;
-
 using BlueCatKoKo.Ui.Constants;
+using BlueCatKoKo.Ui.Extensions;
 using BlueCatKoKo.Ui.Models;
 using BlueCatKoKo.Ui.Services;
-
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
-
 using LibVLCSharp.Shared;
-
 using Microsoft.Extensions.Options;
-
 using Serilog;
-
 using MediaPlayer = LibVLCSharp.Shared.MediaPlayer;
 
 namespace BlueCatKoKo.Ui.ViewModels.Pages
@@ -181,29 +176,24 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
                     throw new InvalidDataException("无效的下载链接");
                 }
 
-                var filename = _appConfig.Value.DownloadPath + Data.Desc + ".mp4";
+                var filepath = _appConfig.Value.DownloadPath;
+                var filename = Data.Desc + ".mp4";
+
+                var replaceFilename = filename.ReplaceInvalidCharacters();
 
                 switch (Data.Platform)
                 {
                     case ShortVideoPlatformEnum.DouYin:
-                        await _douYinShortVideoService.DownloadAsync(Data.VideoUrl, _appConfig.Value.DownloadPath,
-                            Data.Desc + ".mp4",
-                            (sender, e) =>
-                            {
-                                DownloadProcess = e.ProgressPercentage;
-                            }, (sender, e) =>
+                        await _douYinShortVideoService.DownloadAsync(Data.VideoUrl, filepath, replaceFilename,
+                            (sender, e) => { DownloadProcess = e.ProgressPercentage; }, (sender, e) =>
                             {
                                 DownloadProcess = 100;
                                 message = filename + "下载成功~";
                             });
                         break;
                     case ShortVideoPlatformEnum.KuaiShou:
-                        await _kuaiShortVideoService.DownloadAsync(Data.VideoUrl, _appConfig.Value.DownloadPath,
-                            Data.Desc + ".mp4",
-                            (sender, e) =>
-                            {
-                                DownloadProcess = e.ProgressPercentage;
-                            }, (sender, e) =>
+                        await _kuaiShortVideoService.DownloadAsync(Data.VideoUrl, filepath, replaceFilename,
+                            (sender, e) => { DownloadProcess = e.ProgressPercentage; }, (sender, e) =>
                             {
                                 DownloadProcess = 100;
                                 message = filename + "下载成功~";
