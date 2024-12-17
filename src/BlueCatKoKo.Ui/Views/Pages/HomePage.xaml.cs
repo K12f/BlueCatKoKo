@@ -19,19 +19,19 @@ public partial class HomePage : Page
 
     private void clearContent(object sender, MouseButtonEventArgs e)
     {
-        // ½« sender ×ª»»Îª TextBox ¶ÔÏó
+        // å°† sender è½¬æ¢ä¸º TextBox å¯¹è±¡
         TextBox textBox = sender as TextBox;
 
-        // Çå¿Õ TextBox µÄÄÚÈİ
+        // æ¸…ç©º TextBox çš„å†…å®¹
         //if (textBox != null)
         //{
-        //    textBox.Text = "";  // Çå¿ÕÎÄ±¾¿òÄÚÈİ
+        //    textBox.Text = "";  // æ¸…ç©ºæ–‡æœ¬æ¡†å†…å®¹
         //}
 
-        // Èç¹û sender ÊÇÒ»¸ö TextBox£¬²¢ÇÒ¼ôÌù°å°üº¬ÎÄ±¾
+        // å¦‚æœ sender æ˜¯ä¸€ä¸ª TextBoxï¼Œå¹¶ä¸”å‰ªè´´æ¿åŒ…å«æ–‡æœ¬
         if (textBox != null && Clipboard.ContainsText())
         {
-            // ½«¼ôÌù°åÖĞµÄÎÄ±¾ÉèÖÃÎª TextBox µÄÄÚÈİ
+            // å°†å‰ªè´´æ¿ä¸­çš„æ–‡æœ¬è®¾ç½®ä¸º TextBox çš„å†…å®¹
             textBox.Text = Clipboard.GetText();
         }
     }
