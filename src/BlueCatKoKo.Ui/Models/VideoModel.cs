@@ -16,6 +16,9 @@ public class VideoModel
     // 作者  
     public string? AuthorName { get; set; }
 
+    // Unique Id
+    public string? UniqueId { get; set; }
+
     // 头像
     public string? AuthorAvatar { get; set; }
 
