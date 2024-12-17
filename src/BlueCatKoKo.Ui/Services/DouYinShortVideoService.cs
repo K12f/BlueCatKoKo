@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Net.Http;
 using System.Text.RegularExpressions;
+using System.Xml;
 using BlueCatKoKo.Ui.Constants;
 using BlueCatKoKo.Ui.Models;
 using Downloader;
@@ -108,7 +109,7 @@ public class DouYinShortVideoService : IShortVideoService
                 Platform = ShortVideoPlatformEnum.DouYin,
                 VideoId = videoInfoData.AwemeId,
                 AuthorName = videoInfoData.Author.Nickname,
-                UniqueId = videoInfoData.Author.UniqueId,
+                UniqueId = videoInfoData.Author.UniqueId==""?videoInfoData.Author.ShortId:videoInfoData.Author.UniqueId,
                 AuthorAvatar = videoInfoData.Author.AvatarThumb.UrlList.First().ToString(),
                 Title = videoInfoData.Author.Signature,
                 Cover = videoInfoData.Video.Cover.UrlList.Last().ToString(),

@@ -177,7 +177,8 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
                 }
 
                 var filepath = _appConfig.Value.DownloadPath;
-                var filename = "#" + Data.AuthorName + "#" + Data.UniqueId + "# "+ Data.Desc + ".mp4";
+                var filename = "#" + Data.AuthorName + "#" + Data.UniqueId + "# " + Data.Desc;
+                filename = filename.Substring(0, Math.Min(250, ("#" + Data.AuthorName + "#" + Data.UniqueId + "# " + Data.Desc).Length))+".mp4";
 
                 var replaceFilename = filename.ReplaceInvalidCharacters();
 
