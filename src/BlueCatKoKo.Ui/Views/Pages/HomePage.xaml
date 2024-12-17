@@ -18,19 +18,21 @@
       d:DesignWidth="1366">
   <Grid>
     <StackPanel Margin="10">
-      <hc:Row Margin="0,0,0,0">
-        <hc:Col Span="20">
-          <TextBox Text="{Binding ViewModel.DownloadUrlText}"
+            <hc:Row Margin="0,0,0,0">
+                <hc:Col Span="20">
+                    <TextBox Text="{Binding ViewModel.DownloadUrlText}"
                    hc:InfoElement.Placeholder="请粘贴抖音 分享链接"
-                   Style="{StaticResource TextBoxExtend}" />
-        </hc:Col>
-        <hc:Col Span="4">
-          <Button Style="{StaticResource ButtonPrimary}" Content="解析链接" Command="{Binding ViewModel.ParseCommand}"
-                  IsEnabled="{Binding ViewModel.IsDisableParsingBtn}" Margin="5" />
-        </hc:Col>
-      </hc:Row>
-      <hc:Row>
-        <hc:Col Span="20">
+                   Style="{StaticResource TextBoxExtend}" MouseDoubleClick="clearContent"/>
+                </hc:Col>
+            </hc:Row>
+            <hc:Row Margin="0,0,0,0">
+                <hc:Col Span="20" Margin="0,0,0,0">
+                    <Button Style="{StaticResource ButtonPrimary}" Content="解析链接" Command="{Binding ViewModel.ParseCommand}"
+IsEnabled="{Binding ViewModel.IsDisableParsingBtn}" Margin="5" HorizontalAlignment="Stretch" />
+                </hc:Col>
+            </hc:Row>
+            <hc:Row>
+                <hc:Col Span="20">
           <hc:UniformSpacingPanel Orientation="Vertical">
             <ProgressBar Style="{StaticResource ProgressBarInfo}" Visibility="{Binding ViewModel.IsDownload}"
                          Value="{Binding ViewModel.DownloadProcess}" Maximum="100" />

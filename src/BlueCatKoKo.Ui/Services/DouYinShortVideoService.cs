@@ -108,6 +108,7 @@ public class DouYinShortVideoService : IShortVideoService
                 Platform = ShortVideoPlatformEnum.DouYin,
                 VideoId = videoInfoData.AwemeId,
                 AuthorName = videoInfoData.Author.Nickname,
+                UniqueId = videoInfoData.Author.UniqueId,
                 AuthorAvatar = videoInfoData.Author.AvatarThumb.UrlList.First().ToString(),
                 Title = videoInfoData.Author.Signature,
                 Cover = videoInfoData.Video.Cover.UrlList.Last().ToString(),
