@@ -146,6 +146,7 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
         [RelayCommand]
         private void PlayOrPauseVideo()
         {
+            MediaPlayer.AspectRatio = null;
             if (!MediaPlayer.IsPlaying)
             {
                 MediaPlayer.Play();
