@@ -183,6 +183,10 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
 
                 var replaceFilename = filename.ReplaceInvalidCharacters();
 
+                if(File.Exists(filepath+replaceFilename) ){
+                    throw new ValidationException("文件已存在");
+                }
+
                 switch (Data.Platform)
                 {
                     case ShortVideoPlatformEnum.DouYin:
