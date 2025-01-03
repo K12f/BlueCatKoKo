@@ -111,6 +111,7 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
                 {
                     var downloadUrl = await _douYinShortVideoService.ExtractUrlAsync(DownloadUrlText);
                     Data = await _douYinShortVideoService.ExtractVideoDataAsync(downloadUrl);
+                    Data.ShareId = downloadUrl.Replace("https://v.douyin.com/", "").Replace("/", "");
                 }
                 else if (DownloadUrlText.Contains(ShortVideoPlatformEnum.KuaiShou.ToString().ToLower()))
                 {
@@ -178,8 +179,8 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
                 }
 
                 var filepath = _appConfig.Value.DownloadPath;
-                var filename = "#" + Data.AuthorName + "#" + Data.UniqueId + "# " + Data.Desc;
-                filename = filename.Substring(0, Math.Min(250, ("#" + Data.AuthorName + "#" + Data.UniqueId + "# " + Data.Desc).Length))+".mp4";
+                var filename = "#" + Data.AuthorName + "#" + Data.UniqueId + "#" + Data.ShareId + "# " + Data.Desc;
+                filename = filename.Substring(0, Math.Min(200, (filename).Length))+".mp4";
 
                 var replaceFilename = filename.ReplaceInvalidCharacters();
 
