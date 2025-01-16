@@ -57,4 +57,6 @@ public class VideoModel
 
     // 视频时长
     public string? Duration { get; set; }
+
+    public string? ShareId { get; set; }
 }
