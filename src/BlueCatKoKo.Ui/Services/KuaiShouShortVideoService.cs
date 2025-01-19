@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.IO;
-using System.Text;
-using System.Web;
+using System.Net.Http;
+using System.Text.RegularExpressions;
 using BlueCatKoKo.Ui.Constants;
 using BlueCatKoKo.Ui.Models;
 using Downloader;
@@ -12,12 +12,10 @@ using Serilog;
 namespace BlueCatKoKo.Ui.Services;
 
 /// <summary>
-/// 快手下载服务
+///     快手下载服务
 /// </summary>
 public class KuaiShouShortVideoService : IShortVideoService
 {
-    private readonly ILogger _logger;
-
     private static readonly Dictionary<string, string> _locationHeaders = new()
     {
         {
@@ -41,21 +39,21 @@ public class KuaiShouShortVideoService : IShortVideoService
         },
         { "sec-ch-ua", "\"Chromium\";v=\"128\", \"Not;A=Brand\";v=\"24\", \"Google Chrome\";v=\"128\"" },
         { "sec-ch-ua-mobile", "?1" },
-        { "sec-ch-ua-platform", "\"Android\"" },
-        {
-            "Cookie",
-            "kpf=PC_WEB; kpn=KUAISHOU_VISION; clientid=3; did=web_6ece7cfdd334f69ac1fe2579040329d0; didv=1725957114469"
-        }
+        { "sec-ch-ua-platform", "\"Android\"" }
+        // {
+        //     "Cookie",
+        //     "kpf=PC_WEB; kpn=KUAISHOU_VISION; clientid=3; did=web_6ece7cfdd334f69ac1fe2579040329d0; didv=1725957114469"
+        // }
     };
 
-    private static Dictionary<string, string> _videoInfoHeaders = new()
+    private static readonly Dictionary<string, string> _videoInfoHeaders = new()
     {
-        { "Accept", "*/*" },
+        { "Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7" },
         { "Accept-Encoding", "gzip, deflate, br, zstd" },
         { "Accept-Language", "zh-CN,zh;q=0.9" },
         { "Cache-Control", "no-cache" },
         { "Connection", "keep-alive" },
-        { "Cookie", "did=web_d38fe86913df4a88b5593f8aa8d2638e; didv=1725940475000" },
+        { "Cookie", "kpf=PC_WEB; clientid=3; did=web_5ee38d442bc5387e413eeeefc42ed4a2; didv=1734437469000; kpn=KUAISHOU_VISION" },
         { "DNT", "1" },
         { "Host", "m.gifshow.com" },
         { "Origin", "https://m.gifshow.com" },
@@ -64,9 +62,9 @@ public class KuaiShouShortVideoService : IShortVideoService
         //     "Referer",
         //     "https://m.gifshow.com/fw/photo/3xvfmfagspjxq9q?cc=share_copylink&kpf=PC_WEB&utm_campaign=pc_share&shareMethod=token&utm_medium=pc_share&kpn=KUAISHOU_VISION&subBiz=SINGLE_ROW_WEB&ztDid=web_126778f97e238efa29915c708f0789b6&shareId=18063407013272&shareToken=X-1KuDdzw7LGTYAM&shareMode=app&efid=0&shareObjectId=3xvfmfagspjxq9q&utm_source=pc_share"
         // },
-        { "Sec-Fetch-Dest", "empty" },
-        { "Sec-Fetch-Mode", "cors" },
-        { "Sec-Fetch-Site", "same-origin" },
+        { "Sec-Fetch-Dest", "document" },
+        { "Sec-Fetch-Mode", "navigate" },
+        { "Sec-Fetch-Site", "none" },
         {
             "User-Agent",
             "Mozilla/5.0 (Linux; Android 8.0.0; SM-G955U Build/R16NW) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36"
@@ -96,6 +94,8 @@ public class KuaiShouShortVideoService : IShortVideoService
         { "photoId", "3xvfmfagspjxq9q" }
     };
 
+    private readonly ILogger _logger;
+
 
     public KuaiShouShortVideoService(ILogger logger)
     {
@@ -103,8 +103,8 @@ public class KuaiShouShortVideoService : IShortVideoService
     }
 
     /// <summary>
-    /// 解析快手
-    /// https://www.kuaishou.com/f/X-9UuzlPQN2St1Ab
+    ///     解析快手
+    ///     https://www.kuaishou.com/f/X-9UuzlPQN2St1Ab
     /// </summary>
     /// <param name="text"></param>
     /// <returns></returns>
@@ -115,7 +115,7 @@ public class KuaiShouShortVideoService : IShortVideoService
     }
 
     /// <summary>
-    /// 根据链接 https://www.kuaishou.com/f/X-9UuzlPQN2St1Ab 解析出页面中的数据
+    ///     根据链接 https://www.kuaishou.com/f/X-9UuzlPQN2St1Ab 解析出页面中的数据
     /// </summary>
     /// <param name="url"></param>
     /// <returns></returns>
@@ -137,68 +137,52 @@ public class KuaiShouShortVideoService : IShortVideoService
                 throw new InvalidDataException("获取location参数失败");
             }
 
-            var queryParams = HttpUtility.ParseQueryString(locationResponse.ResponseUri.Query);
+            // 发送请求并获取响应
+            _logger.Information("开始解析location,reponse {AbsoluteUri}", locationResponse.ResponseUri.AbsoluteUri);
 
-            if (queryParams is null)
-            {
-                _logger.Error("解析链接失败");
-                throw new InvalidDataException("获取response uri中的query params失败");
-            }
+            var videoRequestUrl = locationResponse.ResponseUri.AbsoluteUri.Replace("https://www.kuaishou.com/short-video", "https://m.gifshow.com/fw/photo");
+            var videoRequest = new RestRequest(videoRequestUrl);
+            videoRequest.AddHeaders(_videoInfoHeaders);
+            var videoResponse = client.Execute(videoRequest);
 
+            if (!videoResponse.IsSuccessful) throw new HttpRequestException("request is fail");
 
-            _requestBodyDict["shareObjectId"] = queryParams.Get("shareObjectId");
-            _requestBodyDict["shareId"] = queryParams.Get("shareId");
-            _requestBodyDict["shareToken"] = queryParams.Get("shareToken");
-            _requestBodyDict["photoId"] = queryParams.Get("shareObjectId");
-            var videoInfoRequestBody = JsonConvert.SerializeObject(_requestBodyDict);
+            var content = videoResponse.Content;
+            _logger.Information("开始解析响应内容 {content}", content);
+            if (content is null) throw new InvalidDataException("content is null");
 
-            var videoInfoRequest = new RestRequest("https://m.gifshow.com/rest/wd/photo/info");
+            const string routerDataPattern =  @"""photo"":\s*\{(.*?)\},\s*""serialInfo""";
 
-            videoInfoRequest.AddQueryParameter("kpn", "KUAISHOU_VISION");
-            videoInfoRequest.AddQueryParameter("captchaToken", "");
-            videoInfoRequest.AddQueryParameter("__NS_hxfalcon",
-                "HUDR_sFnX-DtsD0FXsbDPTXTMP-sk0it4QvcKvw970-3Y9BKuNdZNdSz2-t2IHP3dz5U08BXEKWpxQPN-GUB9srS50qlqmo1ekhckPk6DAhrsl4X3gBO4Or08YWx5z5k5GG0OErQIMjn9z-vcaVIak0LdBXbB7ElchtlD-bUnhQif$HE_5f40d8bdbf1df021ce8515f40018bc5d031514141415c98cb8ae0fcb37f070266b0685158f422ace6f422afc14");
-            videoInfoRequest.AddQueryParameter("caver", "2");
+            var matchJson = Regex.Match(content, routerDataPattern);
 
-            _videoInfoHeaders["Referer"] = locationResponse.ResponseUri.AbsoluteUri;
+            _logger.Information("开始解析匹配到的json {matchJson}", matchJson);
+            if (matchJson.Groups.Count < 2) throw new InvalidDataException("未匹配到合法的数据，matchJson.Groups.Count < 2");
 
-            videoInfoRequest.AddHeaders(_videoInfoHeaders);
-            videoInfoRequest.AddJsonBody(videoInfoRequestBody);
-
-            var videoInfoResponse = client.Execute(videoInfoRequest);
-
-
-            if (videoInfoResponse is null || videoInfoResponse.Content is null)
-                throw new InvalidDataException("响应数据为空，请查看你的日志");
-
-            _logger.Information("开始解析匹配到的json {videoJson}", videoInfoResponse.Content);
-
+            var videoJson = "{"+matchJson.Groups[1].Value+"}";
+            _logger.Information("开始解析匹配到的json {videoJson}", videoJson);
             // 反序列化JSON字符串为C#对象
-            var videoData = JsonConvert.DeserializeObject<KuaiShouShareVideoData>(videoInfoResponse.Content);
-
+            var videoData = JsonConvert.DeserializeObject<KuaishouShareVideoData>(videoJson);
             if (videoData is null) throw new InvalidDataException("JSON解析数据为空，请检查分享链接是否正确，如有更多问题请查看日志");
-
-
             return new VideoModel
             {
                 Platform = ShortVideoPlatformEnum.KuaiShou,
-                VideoId = videoData.Photo.Manifest.VideoId,
-                AuthorName = videoData.Photo.UserName,
-                AuthorAvatar = videoData.Photo.HeadUrl.ToString(),
-                Title = videoData.Photo.Caption,
-                Cover = videoData.Photo.CoverUrls.First().Url.ToString(),
-                VideoUrl = videoData.Mp4Url.ToString(),
+                VideoId = videoData.Manifest.VideoId,
+                AuthorName = videoData.UserName,
+                AuthorAvatar = videoData.HeadUrl.ToString(),
+                Title = videoData.Caption,
+                Cover = videoData.CoverUrls.First().Url.ToString(),
+                VideoUrl = videoData.MainMvUrls.First().Url.ToString(),
                 Mp3Url = "",
                 CreatedTime =
-                    DateTimeOffset.FromUnixTimeMilliseconds(videoData.Photo.Timestamp)
+                    DateTimeOffset.FromUnixTimeMilliseconds(videoData.Timestamp)
                         .ToString("yyyy-MM-dd HH:mm:ss"),
                 Desc = "暂无~",
-                Duration = videoData.Photo.Duration.ToString(),
-                DiggCount = videoData.Photo.LikeCount,
-                ViewCount = videoData.Photo.ViewCount,
-                CollectCount = videoData.Counts.CollectionCount,
-                CommentCount = videoData.Photo.CommentCount,
-                ShareCount = videoData.Photo.ShareCount
+                Duration = videoData.Duration.ToString(),
+                DiggCount = videoData.LikeCount,
+                ViewCount = videoData.ViewCount,
+                CollectCount = 0,
+                CommentCount = videoData.CommentCount,
+                ShareCount = videoData.ShareCount
             };
         }
         catch (Exception e)
