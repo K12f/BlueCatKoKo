@@ -7,7 +7,7 @@
 
 ## 使用教程
 - 复制分享链接
-- 在输入框中双击，自动复制链接@kctekn
+- 在输入框中双击，自动复制链接@[kctekn](https://github.com/kctekn)
 - 点击下载
 
 ![_20240824121629.png](https://s2.loli.net/2024/08/24/BRfOVi4X6bFY8EU.jpg)
