@@ -169,6 +169,7 @@ public class KuaiShouShortVideoService : IShortVideoService
                 VideoId = videoData.Manifest.VideoId,
                 AuthorName = videoData.UserName,
                 AuthorAvatar = videoData.HeadUrl.ToString(),
+                UniqueId = videoData.Manifest.VideoId,
                 Title = videoData.Caption,
                 Cover = videoData.CoverUrls.First().Url.ToString(),
                 VideoUrl = videoData.MainMvUrls.First().Url.ToString(),
@@ -176,7 +177,7 @@ public class KuaiShouShortVideoService : IShortVideoService
                 CreatedTime =
                     DateTimeOffset.FromUnixTimeMilliseconds(videoData.Timestamp)
                         .ToString("yyyy-MM-dd HH:mm:ss"),
-                Desc = "暂无~",
+                Desc = videoData.Caption,
                 Duration = videoData.Duration.ToString(),
                 DiggCount = videoData.LikeCount,
                 ViewCount = videoData.ViewCount,
