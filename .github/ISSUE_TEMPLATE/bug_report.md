@@ -1,5 +1,5 @@
 ---
-name: Bug report
+name: Bug 上报
 about: Create a report to help us improve
 title: ''
 labels: ''
@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 ---
-name: Bug Report
+name: Bug 上报
 about: 报告一个错误
 title: "[BUG] "
 labels: bug
