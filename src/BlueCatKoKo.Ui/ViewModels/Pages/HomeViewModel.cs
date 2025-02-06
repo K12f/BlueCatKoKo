@@ -123,6 +123,7 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
                     throw new ValidationException("暂不支持该平台");
                 }
 
+                _logger.Information($"视频地址: {Data.VideoUrl}");
 
                 // 绑定视频
                 using Media media = new(LibVlc, new Uri(Data.VideoUrl));
