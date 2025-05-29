@@ -105,7 +105,7 @@ jobs:
           Compress-Archive -Path $env:Wap_Project_Release_Directory/* -DestinationPath $env:Wap_Project_Release_Directory/$env:App_Name.zip
       
       - name: Upload build artifacts
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: ${{ env.App_Name }}
           path: ${{ env.Wap_Project_Release_Directory }}/${{ env.App_Name }}.zip
