@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.IO;
+using System.Windows;
 using BlueCatKoKo.Ui.Constants;
 using BlueCatKoKo.Ui.Extensions;
 using BlueCatKoKo.Ui.Models;
@@ -145,6 +146,15 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
             }
         }
 
+        [RelayCommand]
+        private void CopyLink()
+        {
+            Clipboard.SetText(Data.VideoUrl);
+            DownloaderMessage downloadMessage = new(DownloaderEnum.Success, "链接已复制", Data.VideoUrl);
+            Messenger.Send(new ValueChangedMessage<DownloaderMessage>(downloadMessage));
+
+        }
+        
         [RelayCommand]
         private void PlayOrPauseVideo()
         {
