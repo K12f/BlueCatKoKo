@@ -58,7 +58,7 @@ jobs:
       Solution_Name: src/BlueCatKoKo.sln                         # Replace with your solution name, i.e. MyWpfApp.sln.
       Wap_Project_Directory: src/BlueCatKoKo.Ui/   # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
       Wap_Project_Path: src/BlueCatKoKo.Ui/BlueCatKoKo.Ui.csproj                  # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
-      Wap_Project_Release_Directory:  src/BlueCatKoKo.Ui/bin/Release/net8.0-windows
+      Wap_Project_Release_Directory:  src/BlueCatKoKo.Ui/bin/Release/net8.0-windows/win-x64/publish
       App_Name: BlueCatKoKo
 
     steps:
