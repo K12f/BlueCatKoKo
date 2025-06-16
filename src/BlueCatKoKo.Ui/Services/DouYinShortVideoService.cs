@@ -66,7 +66,7 @@ public class DouYinShortVideoService : IShortVideoService
     /// </summary>
     /// <param name="url"></param>
     /// <returns></returns>
-    public async Task<VideoModel> ExtractVideoDataAsync(string url)
+    public Task<VideoModel> ExtractVideoDataAsync(string url)
     {
         try
         {
@@ -137,7 +137,7 @@ public class DouYinShortVideoService : IShortVideoService
                     break;
             }
 
-            return video;
+            return Task.FromResult(video);
         }
         catch (Exception e)
         {
