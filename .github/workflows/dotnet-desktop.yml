@@ -58,7 +58,7 @@ jobs:
       Solution_Name: src/BlueCatKoKo.sln                         # Replace with your solution name, i.e. MyWpfApp.sln.
       Wap_Project_Directory: src/BlueCatKoKo.Ui/   # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
       Wap_Project_Path: src/BlueCatKoKo.Ui/BlueCatKoKo.Ui.csproj                  # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
-      Wap_Project_Release_Directory:  src/BlueCatKoKo.Ui/bin/Release/net8.0-windows/win-x64/
+      Wap_Project_Release_Directory:  src/BlueCatKoKo.Ui/bin/Release/net8.0-windows
       App_Name: BlueCatKoKo
 
     steps:
@@ -93,7 +93,7 @@ jobs:
         run: msbuild $env:Wap_Project_Path /p:Configuration=$env:Configuration /p:UapAppxPackageBuildMode=$env:Appx_Package_Build_Mode /p:AppxBundle=$env:Appx_Bundle /p:PackageCertificateKeyFile=GitHubActionsWorkflow.pfx /p:PackageCertificatePassword=${{ secrets.Pfx_Key }}
         env:
           Appx_Bundle: Always
-          Appx_Bundle_Platforms: x64
+          Appx_Bundle_Platforms: x86|x64
           Appx_Package_Build_Mode: StoreUpload
           Configuration: ${{ matrix.configuration }}
 
