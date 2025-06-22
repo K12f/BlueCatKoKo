@@ -88,7 +88,7 @@ public class DouYinShortVideoService : IShortVideoService
             _logger.Information("开始解析响应内容 {content}", content);
             if (content is null) throw new InvalidDataException("content is null");
 
-            const string routerDataPattern = @"_ROUTER_DATA\s*=\s*(\{.*?\});";
+            const string routerDataPattern = @"_ROUTER_DATA\s*=\s*(\{.*?\})<";
 
             var matchJson = Regex.Match(content, routerDataPattern);
 
