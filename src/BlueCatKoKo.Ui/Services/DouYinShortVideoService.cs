@@ -66,7 +66,7 @@ public class DouYinShortVideoService : IShortVideoService
     /// </summary>
     /// <param name="url"></param>
     /// <returns></returns>
-    public async Task<VideoModel> ExtractVideoDataAsync(string url)
+    public Task<VideoModel> ExtractVideoDataAsync(string url)
     {
         try
         {
@@ -88,7 +88,7 @@ public class DouYinShortVideoService : IShortVideoService
             _logger.Information("开始解析响应内容 {content}", content);
             if (content is null) throw new InvalidDataException("content is null");
 
-            const string routerDataPattern = @"_ROUTER_DATA\s*=\s*(\{.*?\});";
+            const string routerDataPattern = @"_ROUTER_DATA\s*=\s*(\{.*?\})<";
 
             var matchJson = Regex.Match(content, routerDataPattern);
 
@@ -104,7 +104,7 @@ public class DouYinShortVideoService : IShortVideoService
 
             var videoInfoData = videoData.LoaderData.VideoIdPage.VideoInfoRes.ItemList.First();
 
-            return new VideoModel
+            var video = new VideoModel
             {
                 Platform = ShortVideoPlatformEnum.DouYin,
                 VideoId = videoInfoData.AwemeId,
@@ -115,7 +115,7 @@ public class DouYinShortVideoService : IShortVideoService
                 AuthorAvatar = videoInfoData.Author.AvatarThumb.UrlList.First().ToString(),
                 Title = videoInfoData.Author.Signature,
                 Cover = videoInfoData.Video.Cover.UrlList.Last().ToString(),
-                VideoUrl = videoInfoData.Video.PlayAddr.UrlList.First().ToString().Replace("playwm", "play"),
+                // VideoUrl = videoInfoData.Video.PlayAddr.UrlList.First().ToString().Replace("playwm", "play"),
                 Mp3Url = "",
                 CreatedTime =
                     DateTimeOffset.FromUnixTimeSeconds(videoInfoData.CreateTime)
@@ -127,6 +127,17 @@ public class DouYinShortVideoService : IShortVideoService
                 CommentCount = videoInfoData.Statistics.CommentCount,
                 ShareCount = videoInfoData.Statistics.ShareCount
             };
+            switch (videoInfoData.AwemeType)
+            {
+                case 2:
+                    video.VideoUrl = videoInfoData.Video.Cover.UrlList.First().ToString();
+                    break;
+                default:
+                    video.VideoUrl = videoInfoData.Video.PlayAddr.UrlList.First().ToString().Replace("playwm", "play");
+                    break;
+            }
+
+            return Task.FromResult(video);
         }
         catch (Exception e)
         {

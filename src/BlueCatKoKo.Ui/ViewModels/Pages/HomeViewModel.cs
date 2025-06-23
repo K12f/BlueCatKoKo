@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.IO;
+using System.Windows;
 using BlueCatKoKo.Ui.Constants;
 using BlueCatKoKo.Ui.Extensions;
 using BlueCatKoKo.Ui.Models;
@@ -123,6 +124,7 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
                     throw new ValidationException("暂不支持该平台");
                 }
 
+                _logger.Information($"视频地址: {Data.VideoUrl}");
 
                 // 绑定视频
                 using Media media = new(LibVlc, new Uri(Data.VideoUrl));
@@ -144,6 +146,15 @@ namespace BlueCatKoKo.Ui.ViewModels.Pages
             }
         }
 
+        [RelayCommand]
+        private void CopyLink()
+        {
+            Clipboard.SetText(Data.VideoUrl);
+            DownloaderMessage downloadMessage = new(DownloaderEnum.Success, "链接已复制", Data.VideoUrl);
+            Messenger.Send(new ValueChangedMessage<DownloaderMessage>(downloadMessage));
+
+        }
+        
         [RelayCommand]
         private void PlayOrPauseVideo()
         {

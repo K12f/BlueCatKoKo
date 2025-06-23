@@ -8,7 +8,7 @@
         <ApplicationIcon>applicationIcon.ico</ApplicationIcon>
         <Platforms>AnyCPU;x64</Platforms>
         <AssemblyName>BlueCatKoKo</AssemblyName>
-        <AssemblyVersion>1.7.1</AssemblyVersion>
+        <AssemblyVersion>1.7.2</AssemblyVersion>
         <UseWPF>true</UseWPF>
         <MvvmToolkitEnableINotifyPropertyChangingSupport>false</MvvmToolkitEnableINotifyPropertyChangingSupport>
 
@@ -49,23 +49,23 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
-        <PackageReference Include="Downloader" Version="3.1.2" />
-        <PackageReference Include="HandyControl" Version="3.5.1" />
-        <PackageReference Include="LibVLCSharp.WPF" Version="3.9.0" />
-        <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2"/>
+        <PackageReference Include="Downloader" Version="3.1.2"/>
+        <PackageReference Include="HandyControl" Version="3.5.1"/>
+        <PackageReference Include="LibVLCSharp.WPF" Version="3.9.0"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+        <PackageReference Include="RestSharp" Version="112.1.0"/>
         <PackageReference Include="nulastudio.NetBeauty" Version="2.1.4.5" />
-        <PackageReference Include="RestSharp" Version="112.1.0" />
-        <PackageReference Include="Serilog" Version="4.0.1" />
-        <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
-        <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
-        <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
-        <PackageReference Include="VideoLAN.LibVLC.Windows" Version="3.0.20" />
-        <PackageReference Include="WPF-UI" Version="3.0.5" />
-        <PackageReference Include="WPF-UI.Tray" Version="3.0.5" />
+        <PackageReference Include="Serilog" Version="4.0.1"/>
+        <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0"/>
+        <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0"/>
+        <PackageReference Include="Serilog.Sinks.File" Version="6.0.0"/>
+        <PackageReference Include="VideoLAN.LibVLC.Windows" Version="3.0.20"/>
+        <PackageReference Include="WPF-UI" Version="3.0.5"/>
+        <PackageReference Include="WPF-UI.Tray" Version="3.0.5"/>
     </ItemGroup>
 
     <PropertyGroup>
@@ -79,17 +79,17 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="$(ProjectDir)Assets\**" CopyToOutputDirectory="PreserveNewest" LinkBase="Assets\" />
+        <None Include="$(ProjectDir)Assets\**" CopyToOutputDirectory="PreserveNewest" LinkBase="Assets\"/>
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="applicationicon.ico" />
-        <Resource Include="applicationicon.ico" />
+        <None Remove="applicationicon.ico"/>
+        <Resource Include="applicationicon.ico"/>
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="Assets\applicationicon.jpg" />
-        <Resource Include="Assets\applicationicon.jpg" />
+        <None Remove="Assets\applicationicon.jpg"/>
+        <Resource Include="Assets\applicationicon.jpg"/>
     </ItemGroup>
 
 </Project>
