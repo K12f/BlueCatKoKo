@@ -53,6 +53,8 @@ IsEnabled="{Binding ViewModel.IsDisableParsingBtn}" Margin="5" HorizontalAlignme
 
             <Button Content="一键下载" Command="{Binding ViewModel.DownloadAllCommand}"
                     Style="{StaticResource ButtonSuccess}" />
+            <Button Content="复制下载链接" Command="{Binding ViewModel.CopyLinkCommand}"
+                    Style="{StaticResource ButtonInfo}" />
           </hc:UniformSpacingPanel>
         </hc:Col>
         <hc:Col Span="10" Margin="8">

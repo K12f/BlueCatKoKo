@@ -20,7 +20,7 @@
       <hc:Col Span="10">
         <hc:UniformSpacingPanel  Margin="0,32,0,0">
           <TextBox Width="380" hc:InfoElement.TitlePlacement="Left"  IsEnabled="False"
-                   hc:InfoElement.Title="默认下载路径: " Style="{StaticResource TextBoxExtend}"
+                   hc:InfoElement.Title="默认下载路径1122: " Style="{StaticResource TextBoxExtend}"
                    Text="{Binding ViewModel.DownloadPath}"/>
           <Button Command="{Binding ViewModel.SelectDownloadPathCommand}" Content="选择下载路径" Margin="5" Style="{StaticResource ButtonPrimary}"/>
         </hc:UniformSpacingPanel>
