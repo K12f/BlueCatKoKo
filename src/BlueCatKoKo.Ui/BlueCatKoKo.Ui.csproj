@@ -6,9 +6,9 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <ApplicationIcon>applicationIcon.ico</ApplicationIcon>
-        <Platforms>AnyCPU;x64</Platforms>
+        <Platforms>x64</Platforms>
         <AssemblyName>BlueCatKoKo</AssemblyName>
-        <AssemblyVersion>1.7.2</AssemblyVersion>
+        <AssemblyVersion>1.8.2</AssemblyVersion>
         <UseWPF>true</UseWPF>
         <MvvmToolkitEnableINotifyPropertyChangingSupport>false</MvvmToolkitEnableINotifyPropertyChangingSupport>
 
